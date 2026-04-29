@@ -104,7 +104,7 @@ function UsCell({ value }: { value: string | boolean | undefined }) {
 
 export default function Comparison() {
   return (
-    <section className="py-24 md:py-32 px-6 bg-white border-t border-[#ebebeb]">
+    <section className="hidden md:block py-24 md:py-32 px-6 bg-white border-t border-[#ebebeb]">
       <div className="max-w-5xl mx-auto">
         <FadeIn className="text-center mb-14">
           <p className="text-xs font-bold tracking-widest uppercase text-gold mb-4">
