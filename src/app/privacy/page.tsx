@@ -47,7 +47,7 @@ export default function Privacy() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen bg-white pt-32 pb-24 px-6">
+      <main className="min-h-screen bg-white pt-24 pb-24 px-6">
         <div className="max-w-2xl mx-auto">
           <p className="text-xs font-bold tracking-widest uppercase text-gold mb-4">
             Legal

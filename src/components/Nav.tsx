@@ -11,16 +11,12 @@ const navLinks = [
 ];
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-      setPastHero(window.scrollY > window.innerHeight * 0.6);
-    };
+    const handleScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.6);
     window.addEventListener("scroll", handleScroll);
 
     const observers: IntersectionObserver[] = [];
@@ -42,102 +38,111 @@ export default function Nav() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-sm shadow-[0_1px_0_0_#e8e8e8]"
-          : "bg-white/80 backdrop-blur-sm"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link
-          href="/"
-          className="font-display text-lg font-bold tracking-tight text-ink"
-        >
-          Rolfe Brand Scaling
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`text-sm transition-colors duration-150 font-medium ${
-                activeSection === link.id
-                  ? "text-gold"
-                  : "text-[#666] hover:text-ink"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+      <div
+        className={`bg-[#111]/90 backdrop-blur-xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.35)] transition-all duration-500 overflow-hidden ${
+          menuOpen ? "rounded-2xl w-full max-w-sm" : "rounded-full w-auto"
+        }`}
+      >
+        {/* Main pill row */}
+        <div className="flex items-center gap-1 px-3 py-2">
+          {/* Logo */}
           <Link
-            href="/contact"
-            className="text-sm text-[#666] hover:text-ink transition-colors duration-150 font-medium"
-          >
-            Contact
-          </Link>
-          <Link
-            href="/contact"
-            className={`ml-2 px-5 py-2.5 bg-gold text-white text-sm font-semibold hover:bg-[#b8912e] rounded-sm transition-all duration-300 ${
-              pastHero
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-1 pointer-events-none"
-            }`}
-          >
-            Get a Free Demo
-          </Link>
-        </nav>
-
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-[5px] p-2 -mr-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className={`block w-5 h-[1.5px] bg-ink transition-all duration-200 origin-center ${
-              menuOpen ? "rotate-45 translate-y-[6.5px]" : ""
-            }`}
-          />
-          <span
-            className={`block w-5 h-[1.5px] bg-ink transition-all duration-200 ${
-              menuOpen ? "opacity-0 scale-x-0" : ""
-            }`}
-          />
-          <span
-            className={`block w-5 h-[1.5px] bg-ink transition-all duration-200 origin-center ${
-              menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""
-            }`}
-          />
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white border-t border-[#ebebeb] px-6 py-6 flex flex-col gap-5 shadow-sm">
-          {[...navLinks, { label: "Contact", href: "/contact", id: "contact" }].map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`text-sm font-medium transition-colors ${
-                activeSection === link.id ? "text-gold" : "text-[#555] hover:text-ink"
-              }`}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="/contact"
-            className="mt-1 px-5 py-3 bg-gold text-white text-sm font-semibold text-center hover:bg-[#b8912e] transition-colors rounded-sm"
+            href="/"
+            className="font-display text-sm font-bold text-white whitespace-nowrap pr-3 border-r border-white/10 mr-1"
             onClick={() => setMenuOpen(false)}
           >
-            Get a Free Demo
+            Rolfe<span className="text-gold">.</span>
           </Link>
+
+          {/* Desktop links */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 font-medium whitespace-nowrap ${
+                  activeSection === link.id
+                    ? "bg-gold/20 text-gold"
+                    : "text-white/60 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
+              className="text-xs px-3 py-1.5 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium"
+            >
+              Contact
+            </Link>
+          </nav>
+
+          {/* Desktop CTA — slides in after hero */}
+          <div
+            className={`hidden md:block ml-1 transition-all duration-300 overflow-hidden ${
+              pastHero ? "max-w-[140px] opacity-100" : "max-w-0 opacity-0"
+            }`}
+          >
+            <Link
+              href="/contact"
+              className="block text-xs px-4 py-1.5 bg-gold text-white font-semibold rounded-full hover:bg-[#b8912e] transition-colors whitespace-nowrap"
+            >
+              Get a Free Demo
+            </Link>
+          </div>
+
+          {/* Mobile hamburger */}
+          <div className="md:hidden flex items-center gap-2 ml-1">
+            <Link
+              href="/contact"
+              className="text-xs px-3 py-1.5 bg-gold text-white font-semibold rounded-full hover:bg-[#b8912e] transition-colors whitespace-nowrap"
+            >
+              Free Demo
+            </Link>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+              className="w-7 h-7 flex flex-col items-center justify-center gap-[5px]"
+            >
+              <span className={`block w-4 h-[1.5px] bg-white transition-all duration-200 origin-center ${menuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
+              <span className={`block w-4 h-[1.5px] bg-white transition-all duration-200 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
+              <span className={`block w-4 h-[1.5px] bg-white transition-all duration-200 origin-center ${menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
+            </button>
+          </div>
         </div>
-      )}
-    </header>
+
+        {/* Mobile dropdown */}
+        <div
+          className={`md:hidden transition-all duration-300 overflow-hidden ${
+            menuOpen ? "max-h-72 pb-3" : "max-h-0"
+          }`}
+        >
+          <div className="border-t border-white/10 mt-1 pt-2 px-3 flex flex-col gap-1">
+            {[...navLinks, { label: "Contact", href: "/contact", id: "contact" }].map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className={`text-sm px-3 py-2 rounded-xl transition-all duration-150 font-medium ${
+                  activeSection === link.id
+                    ? "bg-gold/20 text-gold"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/before-after"
+              onClick={() => setMenuOpen(false)}
+              className="text-sm px-3 py-2 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition-all duration-150 font-medium"
+            >
+              Before &amp; After
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

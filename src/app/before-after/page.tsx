@@ -202,7 +202,7 @@ export default function BeforeAfter() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen bg-white pt-32 pb-24 px-6">
+      <main className="min-h-screen bg-white pt-24 pb-24 px-6">
         <div className="max-w-6xl mx-auto">
 
           {/* Header */}

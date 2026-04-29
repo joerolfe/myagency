@@ -206,7 +206,7 @@ import CountUp from "./CountUp";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-6 bg-white overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 px-6 bg-white overflow-hidden">
       {/* Subtle background warmth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_65%_at_75%_35%,#fdf9ee,transparent)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_50%_at_15%_75%,#f0f5ff,transparent)] pointer-events-none" />
