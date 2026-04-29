@@ -116,7 +116,7 @@ export default function Nav() {
         }`}
       >
         <div className="p-2 flex flex-col gap-1">
-          {[...navLinks, { label: "Contact", href: "/contact", id: "contact" }, { label: "Before & After", href: "/before-after", id: "" }].map((link) => (
+          {[...navLinks, { label: "Contact", href: "/contact", id: "contact" }].map((link) => (
             <Link
               key={link.label}
               href={link.href}
