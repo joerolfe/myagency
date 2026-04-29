@@ -89,7 +89,7 @@ export default function Nav() {
           {/* Desktop CTA — slides in after hero */}
           <div
             className={`hidden md:block ml-1 transition-all duration-300 overflow-hidden ${
-              pastHero ? "max-w-[140px] opacity-100" : "max-w-0 opacity-0"
+              pastHero && pathname !== "/contact" ? "max-w-[140px] opacity-100" : "max-w-0 opacity-0"
             }`}
           >
             <Link
