@@ -47,25 +47,11 @@ const packages = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 md:py-32 px-6 bg-white">
+    <section className="py-16 md:py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        <FadeIn className="text-center mb-5">
-          <p className="text-xs font-bold tracking-widest uppercase text-gold mb-4">
-            Packages
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-ink">
-            Simple, transparent pricing
-          </h2>
-          <div className="inline-flex items-center gap-2 mt-4 bg-gold/10 border border-gold/25 rounded-full px-4 py-1.5">
-            <span className="w-1.5 h-1.5 bg-gold rounded-full" />
-            <span className="text-sm font-semibold text-[#7a5c1e]">Starting from £299 — one-off payment</span>
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={100} className="text-center mb-14">
+        <FadeIn className="text-center mb-14">
           <p className="text-[#666] text-base max-w-xl mx-auto">
-            Every package includes hosting setup, mobile design, and a free demo
-            before you commit to anything.
+            Every package includes hosting setup, mobile design, and a free demo before you commit to anything.
           </p>
         </FadeIn>
 

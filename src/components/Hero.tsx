@@ -255,7 +255,7 @@ export default function Hero() {
                 Get a Free Demo
               </a>
               <a
-                href="/#services"
+                href="/services"
                 className="px-7 py-3.5 border border-[#ccc] text-ink text-sm font-semibold hover:border-ink hover:bg-ink hover:text-white transition-all duration-150 rounded-sm"
               >
                 See Pricing
