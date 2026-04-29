@@ -38,13 +38,9 @@ export default function Nav() {
   }, []);
 
   return (
-    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-      <div
-        className={`bg-[#111]/90 backdrop-blur-xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.35)] transition-all duration-500 overflow-hidden ${
-          menuOpen ? "rounded-2xl w-full max-w-sm" : "rounded-full w-auto"
-        }`}
-      >
-        {/* Main pill row */}
+    <div className="fixed top-4 left-0 right-0 z-50 flex flex-col items-center gap-2 px-4">
+      {/* Pill */}
+      <div className="bg-[#111]/90 backdrop-blur-xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.35)] rounded-full">
         <div className="flex items-center gap-1 px-3 py-2">
           {/* Logo */}
           <Link
@@ -92,7 +88,7 @@ export default function Nav() {
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile controls */}
           <div className="md:hidden flex items-center gap-2 ml-1">
             <Link
               href="/contact"
@@ -111,36 +107,29 @@ export default function Nav() {
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile dropdown */}
-        <div
-          className={`md:hidden transition-all duration-300 overflow-hidden ${
-            menuOpen ? "max-h-72 pb-3" : "max-h-0"
-          }`}
-        >
-          <div className="border-t border-white/10 mt-1 pt-2 px-3 flex flex-col gap-1">
-            {[...navLinks, { label: "Contact", href: "/contact", id: "contact" }].map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className={`text-sm px-3 py-2 rounded-xl transition-all duration-150 font-medium ${
-                  activeSection === link.id
-                    ? "bg-gold/20 text-gold"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+      {/* Mobile dropdown — separate element, fades in below pill */}
+      <div
+        className={`md:hidden w-full max-w-sm bg-[#111]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.35)] overflow-hidden transition-all duration-200 ${
+          menuOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
+        }`}
+      >
+        <div className="p-2 flex flex-col gap-1">
+          {[...navLinks, { label: "Contact", href: "/contact", id: "contact" }, { label: "Before & After", href: "/before-after", id: "" }].map((link) => (
             <Link
-              href="/before-after"
+              key={link.label}
+              href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-sm px-3 py-2 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition-all duration-150 font-medium"
+              className={`text-sm px-4 py-2.5 rounded-xl transition-all duration-150 font-medium ${
+                activeSection === link.id
+                  ? "bg-gold/20 text-gold"
+                  : "text-white/70 hover:bg-white/10 hover:text-white"
+              }`}
             >
-              Before &amp; After
+              {link.label}
             </Link>
-          </div>
+          ))}
         </div>
       </div>
     </div>
