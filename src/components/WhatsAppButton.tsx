@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 // Replace with your actual WhatsApp number (country code + number, no + or spaces)
-const WHATSAPP_NUMBER = "447700000000";
+const WHATSAPP_NUMBER = "447857859135";
 const MESSAGE = "Hi Joe, I'd like to find out more about getting a website for my business.";
 
 export default function WhatsAppButton() {

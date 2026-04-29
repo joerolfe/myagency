@@ -21,6 +21,10 @@ const faqs = [
     a: "Yes — once paid in full, the site is fully yours.",
   },
   {
+    q: "Do I need to be local?",
+    a: "No — I work with businesses across the UK. Video calls work just as well as in-person meetings, and everything is handled remotely. That said, if you're in Derbyshire or Staffordshire, I'm happy to meet in person too.",
+  },
+  {
     q: "Can you help me show up on Google?",
     a: "Yes, every site includes basic SEO and I can set up your Google Business profile.",
   },

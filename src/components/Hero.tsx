@@ -165,7 +165,7 @@ export default function Hero() {
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-start gap-3 mb-9">
+            <div className="flex flex-col sm:flex-row items-start gap-3 mb-5">
               <a
                 href="/contact"
                 className="px-7 py-3.5 bg-gold text-white text-sm font-semibold hover:bg-[#b8912e] transition-colors duration-150 rounded-sm shadow-[0_4px_14px_rgba(201,168,76,0.35)]"
@@ -179,6 +179,12 @@ export default function Hero() {
                 See Pricing
               </a>
             </div>
+
+            {/* Pricing nudge */}
+            <p className="text-sm text-[#888] mb-9">
+              Websites from{" "}
+              <span className="text-ink font-semibold">£299</span> — free demo, no commitment.
+            </p>
 
             {/* Trust signals */}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#777]">
