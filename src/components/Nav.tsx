@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Services", href: "/services", id: "services" },
@@ -11,6 +12,7 @@ const navLinks = [
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const [pastHero, setPastHero] = useState(false);
@@ -37,6 +39,12 @@ export default function Nav() {
     };
   }, []);
 
+  function isActive(link: { href: string; id: string }) {
+    if (pathname === link.href) return true;
+    if (pathname === "/" && activeSection === link.id) return true;
+    return false;
+  }
+
   return (
     <div className="fixed top-4 left-0 right-0 z-50 flex flex-col items-center gap-2 px-4">
       {/* Pill */}
@@ -58,7 +66,7 @@ export default function Nav() {
                 key={link.label}
                 href={link.href}
                 className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 font-medium whitespace-nowrap ${
-                  activeSection === link.id
+                  isActive(link)
                     ? "bg-gold/20 text-gold"
                     : "text-white/60 hover:text-white hover:bg-white/10"
                 }`}
@@ -68,7 +76,11 @@ export default function Nav() {
             ))}
             <Link
               href="/contact"
-              className="text-xs px-3 py-1.5 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium"
+              className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 font-medium ${
+                pathname === "/contact"
+                  ? "bg-gold/20 text-gold"
+                  : "text-white/60 hover:text-white hover:bg-white/10"
+              }`}
             >
               Contact
             </Link>
