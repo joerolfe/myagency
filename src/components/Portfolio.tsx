@@ -395,7 +395,7 @@ export default function Portfolio() {
         <div className="grid md:grid-cols-3 gap-7">
           {sites.map((site, i) => (
             <FadeIn key={site.business} delay={i * 100}>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 hover:-translate-y-1.5 transition-transform duration-300">
                 <Browser url={site.url}>{site.component}</Browser>
                 <div className="px-1">
                   <p className="text-sm font-bold text-ink">{site.business}</p>

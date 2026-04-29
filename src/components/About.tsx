@@ -10,6 +10,10 @@ export default function About() {
         <div className="grid md:grid-cols-5 gap-12 md:gap-16 items-start">
           {/* Text */}
           <FadeIn className="md:col-span-3">
+            {/* Avatar */}
+            <div className="w-16 h-16 rounded-2xl bg-gold/15 border border-gold/30 flex items-center justify-center mb-6">
+              <span className="font-display text-xl font-bold text-gold">JR</span>
+            </div>
             <p className="text-xs font-bold tracking-widest uppercase text-gold mb-6">
               About
             </p>
@@ -50,9 +54,15 @@ export default function About() {
               <p className="text-[#7a5c1e] text-xs font-semibold mb-1">
                 South Derbyshire
               </p>
-              <p className="text-[#555] text-sm">
-                Serving businesses across the East Midlands
+              <p className="text-[#555] text-sm mb-3">
+                Serving businesses across Derbyshire &amp; Staffordshire
               </p>
+              <a
+                href="tel:07857859135"
+                className="text-gold text-sm font-semibold hover:underline"
+              >
+                07857 859135
+              </a>
             </div>
           </FadeIn>
         </div>

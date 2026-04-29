@@ -30,6 +30,14 @@ export default function Footer() {
           ))}
         </nav>
 
+        {/* Phone */}
+        <a
+          href="tel:07857859135"
+          className="text-white/40 text-sm hover:text-white/70 transition-colors font-medium"
+        >
+          07857 859135
+        </a>
+
         {/* Divider */}
         <div className="w-full border-t border-white/8" />
 

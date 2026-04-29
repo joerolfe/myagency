@@ -4,20 +4,41 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Services", href: "/#services" },
-  { label: "Portfolio", href: "/#portfolio" },
-  { label: "Process", href: "/#process" },
-  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services", id: "services" },
+  { label: "Portfolio", href: "/#portfolio", id: "portfolio" },
+  { label: "Process", href: "/#process", id: "process" },
+  { label: "About", href: "/#about", id: "about" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+      setPastHero(window.scrollY > window.innerHeight * 0.6);
+    };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const observers: IntersectionObserver[] = [];
+    navLinks.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: "-30% 0px -60% 0px" }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observers.forEach((o) => o.disconnect());
+    };
   }, []);
 
   return (
@@ -42,7 +63,11 @@ export default function Nav() {
             <Link
               key={link.label}
               href={link.href}
-              className="text-sm text-[#666] hover:text-ink transition-colors duration-150 font-medium"
+              className={`text-sm transition-colors duration-150 font-medium ${
+                activeSection === link.id
+                  ? "text-gold"
+                  : "text-[#666] hover:text-ink"
+              }`}
             >
               {link.label}
             </Link>
@@ -55,7 +80,11 @@ export default function Nav() {
           </Link>
           <Link
             href="/contact"
-            className="ml-2 px-5 py-2.5 bg-gold text-white text-sm font-semibold hover:bg-[#b8912e] transition-colors duration-150 rounded-sm"
+            className={`ml-2 px-5 py-2.5 bg-gold text-white text-sm font-semibold hover:bg-[#b8912e] rounded-sm transition-all duration-300 ${
+              pastHero
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 -translate-y-1 pointer-events-none"
+            }`}
           >
             Get a Free Demo
           </Link>
@@ -88,11 +117,13 @@ export default function Nav() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-[#ebebeb] px-6 py-6 flex flex-col gap-5 shadow-sm">
-          {[...navLinks, { label: "Contact", href: "/contact" }].map((link) => (
+          {[...navLinks, { label: "Contact", href: "/contact", id: "contact" }].map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="text-sm text-[#555] hover:text-ink font-medium transition-colors"
+              className={`text-sm font-medium transition-colors ${
+                activeSection === link.id ? "text-gold" : "text-[#555] hover:text-ink"
+              }`}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}

@@ -70,8 +70,8 @@ export default function FAQ() {
                   </span>
                 </button>
                 {open === i && (
-                  <div className="px-7 pb-6 bg-stone">
-                    <p className="text-[#555] leading-relaxed text-sm md:text-base">
+                  <div className="pl-5 pr-7 pb-6 bg-stone border-l-2 border-gold ml-0">
+                    <p className="text-[#555] leading-relaxed text-sm md:text-base pl-2">
                       {faq.a}
                     </p>
                   </div>

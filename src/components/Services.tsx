@@ -53,6 +53,10 @@ export default function Services() {
           <h2 className="font-display text-3xl md:text-4xl font-bold text-ink">
             Simple, transparent pricing
           </h2>
+          <div className="inline-flex items-center gap-2 mt-4 bg-gold/10 border border-gold/25 rounded-full px-4 py-1.5">
+            <span className="w-1.5 h-1.5 bg-gold rounded-full" />
+            <span className="text-sm font-semibold text-[#7a5c1e]">Starting from £299 — one-off payment</span>
+          </div>
         </FadeIn>
 
         <FadeIn delay={100} className="text-center mb-14">
@@ -66,10 +70,10 @@ export default function Services() {
           {packages.map((pkg, i) => (
             <FadeIn key={pkg.name} delay={i * 100}>
               <div
-                className={`relative flex flex-col rounded-sm overflow-hidden h-full ${
+                className={`relative flex flex-col rounded-sm overflow-hidden h-full hover:-translate-y-1.5 transition-transform duration-300 ${
                   pkg.featured
-                    ? "border-2 border-gold shadow-[0_8px_32px_rgba(201,168,76,0.18)]"
-                    : "border border-[#e8e8e8]"
+                    ? "border-2 border-gold shadow-[0_8px_32px_rgba(201,168,76,0.18)] hover:shadow-[0_16px_48px_rgba(201,168,76,0.25)]"
+                    : "border border-[#e8e8e8] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
                 }`}
               >
                 {pkg.featured && (

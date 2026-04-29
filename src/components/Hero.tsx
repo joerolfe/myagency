@@ -29,62 +29,61 @@ function BrowserMockup() {
           </div>
         </div>
 
-        {/* Fake website content */}
-        <div className="bg-white select-none">
-          {/* Fake nav */}
-          <div className="px-4 py-2.5 flex items-center justify-between border-b border-[#f0f0f0]">
+        {/* Realistic website preview */}
+        <div className="bg-white select-none overflow-hidden">
+          {/* Nav */}
+          <div className="bg-[#1e3a5f] px-4 py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 bg-gold rounded-sm" />
-              <div className="w-16 h-2 bg-[#1a1a1a] rounded-full" />
+              <div className="w-3 h-3 rounded-full bg-blue-400 flex-shrink-0" />
+              <span className="text-white text-[9px] font-bold tracking-tight">Smith&apos;s Plumbing</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-1.5 bg-[#ddd] rounded-full" />
-              <div className="w-8 h-1.5 bg-[#ddd] rounded-full" />
-              <div className="w-16 h-5 bg-gold rounded-sm" />
+            <div className="flex items-center gap-2.5">
+              <span className="text-white/60 text-[8px]">Services</span>
+              <span className="text-white/60 text-[8px]">About</span>
+              <span className="bg-[#f59e0b] text-white text-[8px] px-2 py-0.5 rounded-sm font-bold">Call Now</span>
             </div>
           </div>
 
-          {/* Fake hero area */}
-          <div className="px-5 pt-6 pb-5 bg-gradient-to-br from-[#faf8f2] to-white">
-            <div className="w-28 h-4 bg-gold/20 rounded-full mb-4" />
-            <div className="space-y-2 mb-3">
-              <div className="w-full h-3.5 bg-[#1a1a1a] rounded-full" />
-              <div className="w-4/5 h-3.5 bg-[#1a1a1a] rounded-full" />
+          {/* Emergency bar */}
+          <div className="bg-red-600 px-4 py-1 text-center">
+            <span className="text-white text-[8px] font-semibold">⚡ 24/7 Emergency Call-Out — 07800 123456</span>
+          </div>
+
+          {/* Hero */}
+          <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%)", padding: "22px 16px 20px" }}>
+            <div className="inline-block bg-white/20 rounded-full px-2 py-0.5 mb-2">
+              <span className="text-white text-[7px] font-semibold">✓ Gas Safe Registered</span>
             </div>
-            <div className="w-full h-2 bg-[#e5e5e5] rounded-full mb-1.5" />
-            <div className="w-3/4 h-2 bg-[#e5e5e5] rounded-full mb-5" />
+            <div className="text-white font-bold text-[14px] leading-tight mb-1.5">
+              Fast, Reliable<br />Plumbing Services
+            </div>
+            <div className="text-white/70 text-[8px] mb-3">Covering Derby &amp; Staffordshire · Same day available</div>
             <div className="flex gap-2">
-              <div className="w-24 h-7 bg-gold rounded-sm" />
-              <div className="w-20 h-7 border border-[#ccc] rounded-sm" />
+              <div className="bg-white text-[#1e3a8a] text-[8px] font-bold px-3 py-1.5 rounded-sm">Get a Quote</div>
+              <div className="border border-white/40 text-white text-[8px] px-3 py-1.5 rounded-sm">Our Services</div>
             </div>
           </div>
 
-          {/* Fake cards */}
-          <div className="px-4 py-4 grid grid-cols-3 gap-2.5">
-            {[false, true, false].map((featured, i) => (
-              <div
-                key={i}
-                className={`rounded-sm p-3 ${
-                  featured
-                    ? "border-2 border-gold shadow-[0_2px_12px_rgba(201,168,76,0.2)]"
-                    : "border border-[#e8e8e8]"
-                }`}
-              >
-                <div className="w-2/3 h-2 bg-[#333] rounded-full mb-2" />
-                <div className="w-full h-5 bg-gold rounded-sm mb-2" />
-                <div className="space-y-1">
-                  <div className="w-full h-1.5 bg-[#e0e0e0] rounded-full" />
-                  <div className="w-3/4 h-1.5 bg-[#e0e0e0] rounded-full" />
-                  <div className="w-5/6 h-1.5 bg-[#e0e0e0] rounded-full" />
+          {/* Service cards */}
+          <div className="grid grid-cols-3 gap-1.5 p-3 bg-[#f8f9fa]">
+            {[
+              { label: "Boiler Repair", color: "#2563eb" },
+              { label: "Bathrooms", color: "#0891b2" },
+              { label: "Leak Repair", color: "#0284c7" },
+            ].map((s) => (
+              <div key={s.label} className="bg-white rounded-sm p-2.5 border border-[#e8e8e8] text-center shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <div className="w-5 h-5 rounded-full mx-auto mb-1.5" style={{ background: s.color + "20" }}>
+                  <div className="w-2 h-2 rounded-full mx-auto mt-1.5" style={{ background: s.color }} />
                 </div>
+                <div className="text-[7px] font-semibold text-[#222]">{s.label}</div>
               </div>
             ))}
           </div>
 
-          {/* Fake footer strip */}
-          <div className="px-4 py-3 bg-[#111] flex items-center justify-between">
-            <div className="w-20 h-2 bg-white/25 rounded-full" />
-            <div className="w-14 h-2 bg-white/15 rounded-full" />
+          {/* Footer */}
+          <div className="px-4 py-2.5 bg-[#1e3a5f] flex items-center justify-between">
+            <span className="text-white/50 text-[7px]">© 2025 Smith&apos;s Plumbing</span>
+            <span className="text-white/50 text-[7px]">Derby, DE1</span>
           </div>
         </div>
       </div>
