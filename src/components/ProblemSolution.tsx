@@ -1,89 +1,110 @@
 import FadeIn from "./FadeIn";
 
 const problems = [
-  "No website at all, or one that hasn't been updated in years",
-  "Outdated design that makes your business look unprofessional",
-  "Not showing up on Google when local customers search",
-  "Site isn't mobile friendly — losing customers on phones",
+  {
+    stat: "3 sec",
+    label: "First impressions",
+    problem: "Visitors decide whether to trust your business in 3 seconds. An outdated or missing website loses them before you've said a word.",
+  },
+  {
+    stat: "76%",
+    label: "of customers",
+    problem: "Check a business online before they call. If your site looks poor — or doesn't exist — they call your competitor instead.",
+  },
+  {
+    stat: "60%",
+    label: "of searches",
+    problem: "Are on mobile. If your website isn't built for phones, you're invisible to the majority of your potential customers.",
+  },
 ];
 
-const solutions = [
-  "A fast, modern website built to make a strong first impression",
-  "Clean, custom design tailored to your business and brand",
-  "Basic SEO on every site — so you can be found on Google",
-  "Fully responsive — looks great on every screen, every time",
+const outcomes = [
+  {
+    title: "Show up when it matters",
+    body: "Every site includes SEO setup so you appear when local customers search for your trade on Google.",
+  },
+  {
+    title: "Win trust instantly",
+    body: "A clean, custom design makes your business look professional from the first click — turning visitors into enquiries.",
+  },
+  {
+    title: "Works on every device",
+    body: "Built mobile-first so it looks sharp on phones, tablets, and desktops — where your customers actually are.",
+  },
+  {
+    title: "Enquiries while you sleep",
+    body: "A contact form and clear calls-to-action mean customers can reach you at any hour, even when you're on the job.",
+  },
 ];
 
 export default function ProblemSolution() {
   return (
     <section className="py-24 md:py-32 px-6 bg-stone border-t border-[#ebebeb]">
       <div className="max-w-6xl mx-auto">
+
         <FadeIn className="text-center mb-16">
+          <p className="text-xs font-bold tracking-widest uppercase text-gold mb-4">The Reality</p>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-ink leading-tight max-w-2xl mx-auto">
-            Most local business websites are losing you customers
+            Every day without a proper website is costing you customers
           </h2>
           <p className="text-[#666] mt-4 text-base max-w-xl mx-auto">
-            Here&apos;s the honest truth — and what I do about it.
+            Most local businesses don&apos;t realise how much they&apos;re losing online — until they fix it.
           </p>
         </FadeIn>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-0">
-          {/* Problem column */}
-          <FadeIn className="md:pr-16">
-            <div className="bg-white rounded-sm border border-[#e8e8e8] p-8">
-              <div className="flex items-center gap-2 mb-7">
-                <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                    <path d="M1 1L7 7M7 1L1 7" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
+        {/* Problem stats */}
+        <div className="grid md:grid-cols-3 gap-5 mb-16">
+          {problems.map((p, i) => (
+            <FadeIn key={i} delay={i * 80}>
+              <div className="bg-white border border-[#e8e8e8] rounded-sm p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg width="7" height="7" viewBox="0 0 8 8" fill="none">
+                      <path d="M1 1L7 7M7 1L1 7" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="font-display text-2xl font-bold text-ink">{p.stat}</span>
+                    <span className="text-[#888] text-sm ml-1.5">{p.label}</span>
+                  </div>
                 </div>
-                <h3 className="text-xs font-bold tracking-widest uppercase text-[#999]">
-                  The Problem
-                </h3>
+                <p className="text-[#555] text-sm leading-relaxed">{p.problem}</p>
               </div>
-              <ul className="space-y-5">
-                {problems.map((item) => (
-                  <li key={item} className="flex items-start gap-4">
-                    <span className="mt-0.5 text-[#ddd] font-bold text-sm select-none flex-shrink-0">
-                      —
-                    </span>
-                    <span className="text-[#555] leading-relaxed text-sm md:text-base">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </FadeIn>
-
-          {/* Solution column */}
-          <FadeIn delay={150} className="md:pl-16">
-            <div className="bg-white rounded-sm border border-[#e8e8e8] p-8 h-full">
-              <div className="flex items-center gap-2 mb-7">
-                <div className="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0">
-                  <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
-                    <path d="M1 3L3 5L7 1" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                <h3 className="text-xs font-bold tracking-widest uppercase text-gold">
-                  What I Do
-                </h3>
-              </div>
-              <ul className="space-y-5">
-                {solutions.map((item) => (
-                  <li key={item} className="flex items-start gap-4">
-                    <span className="mt-0.5 text-gold font-bold text-sm select-none flex-shrink-0">
-                      —
-                    </span>
-                    <span className="text-[#444] leading-relaxed text-sm md:text-base">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          ))}
         </div>
+
+        {/* Divider */}
+        <FadeIn className="flex items-center gap-4 mb-16">
+          <div className="flex-1 h-px bg-[#e8e8e8]" />
+          <div className="flex items-center gap-2 px-4 py-2 bg-gold/10 border border-gold/25 rounded-full">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6L5 9L10 3" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="text-xs font-bold text-gold uppercase tracking-widest">Here&apos;s what I fix</span>
+          </div>
+          <div className="flex-1 h-px bg-[#e8e8e8]" />
+        </FadeIn>
+
+        {/* Outcomes */}
+        <div className="grid sm:grid-cols-2 gap-5">
+          {outcomes.map((o, i) => (
+            <FadeIn key={i} delay={i * 80}>
+              <div className="flex gap-4 items-start p-6 bg-white border border-[#e8e8e8] rounded-sm shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                <div className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                    <path d="M1 4L3.5 6.5L9 1" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-semibold text-ink text-sm mb-1">{o.title}</p>
+                  <p className="text-[#666] text-sm leading-relaxed">{o.body}</p>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+
       </div>
     </section>
   );

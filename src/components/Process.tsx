@@ -2,48 +2,70 @@ import FadeIn from "./FadeIn";
 
 const steps = [
   {
-    number: "01",
     title: "Discovery",
     description:
-      "I find your business on Google Maps and review your current online presence to understand what's missing and what matters most.",
+      "I research your business, check your current online presence, and identify exactly what's holding you back — before we've even spoken.",
     tag: "Free",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M12.5 12.5L16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
   },
   {
-    number: "02",
     title: "Free Demo",
     description:
-      "I build a free demo of your new website — no commitment needed. You get to see exactly what your site could look like before anything is agreed.",
+      "I build a working demo of your new website at no cost. You see exactly what your site will look like before anything is agreed or paid.",
     tag: "No obligation",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="1.5" y="3.5" width="15" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M6 14.5V16.5M12 14.5V16.5M4 16.5H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M7 9L9 11L12 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
   },
   {
-    number: "03",
-    title: "Review Meeting",
+    title: "Review Together",
     description:
-      "We meet in person or over a video call and I walk you through the demo. You can ask questions, request changes, and see everything before you decide.",
+      "We meet in person or on a video call. I walk you through the demo, answer every question, and make any changes you want — no rush.",
     tag: "In person or video",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M2 4.5C2 3.67 2.67 3 3.5 3H14.5C15.33 3 16 3.67 16 4.5V11.5C16 12.33 15.33 13 14.5 13H10L6 16V13H3.5C2.67 13 2 12.33 2 11.5V4.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M6 7.5H12M6 10H10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
   },
   {
-    number: "04",
     title: "Build & Launch",
     description:
-      "You approve the design, and I build the full site and handle all hosting setup. Everything is done for you — domain, hosting, the lot.",
+      "You approve the design and I build the full site, set up hosting, domain, and go live — everything handled from start to finish.",
     tag: "Fully managed",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 2L10.8 6.2L15.5 6.6L12.1 9.6L13.1 14.2L9 11.7L4.9 14.2L5.9 9.6L2.5 6.6L7.2 6.2L9 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </svg>
+    ),
   },
   {
-    number: "05",
     title: "Ongoing Support",
     description:
-      "Your site goes live, and I manage updates and security on a monthly retainer. You never have to worry about the technical side again.",
+      "Your site goes live and I handle updates, security, and changes on a monthly retainer. You focus on the business — I handle the tech.",
     tag: "From £35/month",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 2.5L14 5.3V9C14 12.1 11.8 14.9 9 15.8C6.2 14.9 4 12.1 4 9V5.3L9 2.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M7 9L8.5 10.5L11.5 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
   },
 ];
 
 export default function Process() {
   return (
-    <section
-      id="process"
-      className="py-24 md:py-32 px-6 bg-white border-t border-[#ebebeb]"
-    >
+    <section id="process" className="py-24 md:py-32 px-6 bg-white border-t border-[#ebebeb]">
       <div className="max-w-4xl mx-auto">
         <FadeIn className="text-center mb-16">
           <p className="text-xs font-bold tracking-widest uppercase text-gold mb-4">
@@ -53,31 +75,26 @@ export default function Process() {
             How it works
           </h2>
           <p className="text-[#666] mt-4 text-base max-w-lg mx-auto">
-            From discovery to a live website — handled end to end, with no tech
-            knowledge required from you.
+            From first contact to a live website — handled end to end, with no tech knowledge required from you.
           </p>
         </FadeIn>
 
         <div>
           {steps.map((step, index) => (
-            <FadeIn key={step.number} delay={index * 80}>
+            <FadeIn key={step.title} delay={index * 80}>
               <div className="flex gap-7 md:gap-10">
-                {/* Number + connector */}
+                {/* Icon + connector */}
                 <div className="flex flex-col items-center flex-shrink-0">
-                  <div className="w-11 h-11 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center">
-                    <span className="font-display text-gold text-sm font-bold">
-                      {step.number}
-                    </span>
+                  <div className="w-11 h-11 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
+                    {step.icon}
                   </div>
                   {index < steps.length - 1 && (
-                    <div className="w-px flex-1 bg-gradient-to-b from-gold/20 to-transparent my-2" />
+                    <div className="w-px flex-1 bg-gradient-to-b from-gold/25 to-transparent my-2" />
                   )}
                 </div>
 
                 {/* Content */}
-                <div
-                  className={`${index < steps.length - 1 ? "pb-10" : ""} pt-2`}
-                >
+                <div className={`${index < steps.length - 1 ? "pb-10" : ""} pt-2`}>
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                     <h3 className="text-base font-bold text-ink">{step.title}</h3>
                     <span className="text-[10px] font-bold tracking-wider uppercase bg-gold/10 text-gold px-2 py-0.5 rounded-full">
@@ -93,14 +110,19 @@ export default function Process() {
           ))}
         </div>
 
-        <FadeIn delay={200} className="mt-12 p-6 bg-stone border border-[#e8e8e8] rounded-sm">
-          <p className="text-ink font-semibold text-sm mb-1">
-            Zero risk guarantee
-          </p>
-          <p className="text-[#666] text-sm leading-relaxed">
-            If you see the demo and decide it&apos;s not for you, that&apos;s
-            completely fine — you walk away with no cost and no obligation.
-          </p>
+        <FadeIn delay={200} className="mt-12 p-6 md:p-8 bg-stone border border-[#e8e8e8] rounded-sm flex gap-4 items-start">
+          <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+              <path d="M1 6L5 10L13 2" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-ink font-bold text-sm mb-1">Zero risk guarantee</p>
+            <p className="text-[#666] text-sm leading-relaxed">
+              If you see the demo and it&apos;s not for you — no hard feelings, no invoice, no awkward conversation.
+              You walk away with nothing to lose. That&apos;s the whole point of doing the demo first.
+            </p>
+          </div>
         </FadeIn>
       </div>
     </section>

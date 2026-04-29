@@ -5,6 +5,7 @@ const packages = [
     name: "Starter",
     price: "£299",
     description: "Get your business online fast with a clean, professional site.",
+    outcome: "Stop losing customers to competitors who have a website and you don't.",
     features: [
       "1–3 pages",
       "Mobile responsive design",
@@ -18,6 +19,7 @@ const packages = [
     name: "Standard",
     price: "£599",
     description: "A complete online presence built to win more local customers.",
+    outcome: "Show up on Google and turn more visitors into paying customers.",
     features: [
       "Up to 6 pages",
       "Image gallery",
@@ -31,6 +33,7 @@ const packages = [
     name: "Premium",
     price: "£999",
     description: "A full-featured site with everything you need to scale.",
+    outcome: "A complete digital presence that generates enquiries around the clock.",
     features: [
       "6+ pages",
       "Blog / news section",
@@ -99,9 +102,13 @@ export default function Services() {
                         one-off
                       </span>
                     </div>
-                    <p className="text-[#666] text-sm leading-relaxed">
+                    <p className="text-[#666] text-sm leading-relaxed mb-3">
                       {pkg.description}
                     </p>
+                    <div className="flex items-start gap-2 bg-gold/8 border border-gold/20 rounded-sm px-3 py-2">
+                      <span className="text-gold text-xs mt-0.5 flex-shrink-0">→</span>
+                      <p className="text-[#7a5c1e] text-xs leading-relaxed font-medium">{pkg.outcome}</p>
+                    </div>
                   </div>
 
                   <ul className="space-y-3.5 mb-8 flex-1">

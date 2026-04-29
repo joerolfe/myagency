@@ -10,7 +10,7 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="bg-ink px-6 py-14">
+    <footer className="bg-ink px-6 py-14 pb-28 md:pb-14">
       <div className="max-w-5xl mx-auto flex flex-col items-center gap-8">
         {/* Brand */}
         <Link href="/" className="font-display text-xl font-bold text-white">
@@ -43,12 +43,12 @@ export default function Footer() {
 
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
-          <p className="text-white/25 text-xs">
+          <p className="text-white/25 text-xs text-center sm:text-left">
             &copy; {new Date().getFullYear()} Rolfe Brand Scaling · Derbyshire &amp; Staffordshire
           </p>
           <Link
             href="/privacy"
-            className="text-white/25 text-xs hover:text-white/45 transition-colors"
+            className="text-white/45 text-xs hover:text-white/70 transition-colors underline underline-offset-2"
           >
             Privacy Policy
           </Link>
