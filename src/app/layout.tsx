@@ -3,7 +3,6 @@ import { Playfair_Display, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import MobileCTA from "@/components/MobileCTA";
 
 const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 
@@ -77,7 +76,6 @@ export default function RootLayout({
       <body className="bg-white text-ink font-sans antialiased">
         {children}
         <WhatsAppButton />
-        <MobileCTA />
       </body>
     </html>
   );

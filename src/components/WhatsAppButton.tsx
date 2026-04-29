@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className={`fixed bottom-24 right-5 z-40 flex items-center gap-2.5 bg-[#25D366] text-white pl-3 pr-3 py-3 md:pl-4 md:pr-5 rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:bg-[#1ebe5d] hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)] transition-all duration-200 group md:bottom-8 md:right-8 ${
+      className={`fixed bottom-6 right-5 z-40 flex items-center gap-2.5 bg-[#25D366] text-white pl-3 pr-3 py-3 md:pl-4 md:pr-5 rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:bg-[#1ebe5d] hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)] transition-all duration-200 group md:bottom-8 md:right-8 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
       style={{ transition: "opacity 0.3s ease, transform 0.3s ease, background-color 0.15s, box-shadow 0.15s" }}
