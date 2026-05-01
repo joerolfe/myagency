@@ -209,9 +209,7 @@ export default function ServicesPage() {
                 All packages are one-off payments. Monthly retainer is optional — not required.
               </p>
             </div>
-
             <PricingCards />
-
             <p className="text-center text-[#999] text-sm mt-8">
               Not sure which package is right for you?{" "}
               <Link href="/contact" className="text-ink font-semibold hover:text-gold transition-colors">

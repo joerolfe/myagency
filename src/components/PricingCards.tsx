@@ -160,9 +160,9 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
         <div className={`flex flex-col flex-1 p-7 ${pkg.featured ? "bg-white" : "bg-stone"}`}>
           <div className="mb-6">
             <h3 className="font-display text-xl font-bold text-ink mb-1">{pkg.name}</h3>
-            <div className="font-display text-4xl font-bold text-ink mb-1">
+            <div className="font-sans text-4xl font-bold text-ink mb-1 tracking-tight">
               {pkg.price}
-              <span className="text-base font-sans font-normal text-[#999] ml-1">one-off</span>
+              <span className="text-base font-normal text-[#999] ml-1">one-off</span>
             </div>
             <p className="text-[#888] text-xs leading-relaxed mt-2 italic">{pkg.who}</p>
           </div>
