@@ -19,6 +19,9 @@ const packages = [
     ],
     featured: false,
     cta: "Get Started",
+    floatDelay: "0s",
+    glowColor: "rgba(0,0,0,0.13)",
+    glowColorHover: "rgba(0,0,0,0.20)",
   },
   {
     name: "Standard",
@@ -35,6 +38,9 @@ const packages = [
     ],
     featured: true,
     cta: "Get Started",
+    floatDelay: "0.6s",
+    glowColor: "rgba(201,168,76,0.35)",
+    glowColorHover: "rgba(201,168,76,0.55)",
   },
   {
     name: "Premium",
@@ -51,6 +57,9 @@ const packages = [
     ],
     featured: false,
     cta: "Get Started",
+    floatDelay: "1.2s",
+    glowColor: "rgba(0,0,0,0.13)",
+    glowColorHover: "rgba(0,0,0,0.20)",
   },
 ];
 
@@ -74,8 +83,8 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotX = ((y - rect.height / 2) / rect.height) * -12;
-    const rotY = ((x - rect.width / 2) / rect.width) * 12;
+    const rotX = ((y - rect.height / 2) / rect.height) * -10;
+    const rotY = ((x - rect.width / 2) / rect.width) * 10;
     setTilt({ rotX, rotY, active: true });
     setShine({ x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
   }
@@ -85,43 +94,60 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
     setShine({ x: 50, y: 50 });
   }
 
-  const baseY = pkg.featured ? -10 : 0;
-  const baseShadow = pkg.featured
-    ? "0 24px 60px rgba(201,168,76,0.22), 0 8px 24px rgba(0,0,0,0.10)"
-    : "0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05)";
-  const hoverShadow = pkg.featured
-    ? "0 32px 80px rgba(201,168,76,0.30), 0 12px 32px rgba(0,0,0,0.14)"
-    : "0 20px 60px rgba(0,0,0,0.14), 0 4px 16px rgba(0,0,0,0.07)";
-
   return (
-    <div style={{ perspective: "1200px" }}>
+    <div style={{ perspective: "1200px", paddingBottom: "28px" }}>
+      {/* Glow blob beneath card */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-8 rounded-full blur-2xl pointer-events-none transition-all duration-500"
+        style={{
+          background: tilt.active ? pkg.glowColorHover : pkg.glowColor,
+          transform: "translateX(-50%) scaleX(0.85)",
+        }}
+      />
+
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
+          animation: `cardFloat 3.6s ease-in-out infinite`,
+          animationDelay: pkg.floatDelay,
           transform: tilt.active
-            ? `rotateX(${tilt.rotX}deg) rotateY(${tilt.rotY}deg) translateY(${baseY - 4}px) translateZ(16px)`
-            : `rotateX(0deg) rotateY(0deg) translateY(${baseY}px) translateZ(0px)`,
+            ? `rotateX(${tilt.rotX}deg) rotateY(${tilt.rotY}deg) translateZ(20px)`
+            : undefined,
           transition: tilt.active
             ? "transform 0.08s ease, box-shadow 0.08s ease"
             : "transform 0.55s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.55s cubic-bezier(0.23, 1, 0.32, 1)",
-          boxShadow: tilt.active ? hoverShadow : baseShadow,
+          boxShadow: tilt.active
+            ? pkg.featured
+              ? "0 28px 70px rgba(201,168,76,0.45), 0 8px 24px rgba(0,0,0,0.10)"
+              : "0 24px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08)"
+            : pkg.featured
+              ? "0 20px 50px rgba(201,168,76,0.30), 0 6px 20px rgba(0,0,0,0.08)"
+              : "0 16px 44px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.05)",
           transformStyle: "preserve-3d",
         }}
         className={`relative flex flex-col rounded-sm overflow-hidden cursor-default will-change-transform ${
-          pkg.featured
-            ? "border-2 border-gold"
-            : "border border-[#e8e8e8]"
+          pkg.featured ? "border-2 border-gold" : "border border-[#e8e8e8]"
         }`}
       >
-        {/* Gloss shine overlay */}
+        {/* Gloss shine */}
         <div
           className="absolute inset-0 pointer-events-none z-10 rounded-sm"
           style={{
-            background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,0.18) 0%, transparent 65%)`,
-            transition: tilt.active ? "none" : "opacity 0.4s",
+            background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,0.22) 0%, transparent 60%)`,
             opacity: tilt.active ? 1 : 0,
+            transition: tilt.active ? "none" : "opacity 0.4s",
+          }}
+        />
+
+        {/* Ambient top-edge highlight — always visible */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px pointer-events-none z-10"
+          style={{
+            background: pkg.featured
+              ? "linear-gradient(90deg, transparent, rgba(201,168,76,0.6), transparent)"
+              : "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
           }}
         />
 
@@ -132,7 +158,6 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
         )}
 
         <div className={`flex flex-col flex-1 p-7 ${pkg.featured ? "bg-white" : "bg-stone"}`}>
-          {/* Header */}
           <div className="mb-6">
             <h3 className="font-display text-xl font-bold text-ink mb-1">{pkg.name}</h3>
             <div className="font-display text-4xl font-bold text-ink mb-1">
@@ -142,13 +167,11 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
             <p className="text-[#888] text-xs leading-relaxed mt-2 italic">{pkg.who}</p>
           </div>
 
-          {/* Outcome */}
           <div className="flex items-start gap-2 bg-gold/8 border border-gold/20 rounded-sm px-3 py-2.5 mb-6">
             <span className="text-gold text-xs mt-0.5 flex-shrink-0 font-bold">→</span>
             <p className="text-[#7a5c1e] text-xs leading-relaxed font-medium">{pkg.outcome}</p>
           </div>
 
-          {/* Features */}
           <ul className="space-y-3 mb-8 flex-1">
             {pkg.features.map((f) => (
               <li key={f} className="flex items-start gap-2.5">
@@ -180,10 +203,20 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
 
 export default function PricingCards() {
   return (
-    <div className="grid md:grid-cols-3 gap-8 items-center py-4">
-      {packages.map((pkg) => (
-        <PricingCard key={pkg.name} pkg={pkg} />
-      ))}
-    </div>
+    <>
+      <style>{`
+        @keyframes cardFloat {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-10px); }
+        }
+      `}</style>
+      <div className="grid md:grid-cols-3 gap-8 items-center py-6">
+        {packages.map((pkg) => (
+          <div key={pkg.name} className="relative">
+            <PricingCard pkg={pkg} />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
