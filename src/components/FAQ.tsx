@@ -1,7 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import FadeIn from "./FadeIn";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const blurUp: Variants = {
+  hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.65, ease } },
+};
 
 const faqs = [
   {
@@ -36,62 +48,89 @@ export default function FAQ() {
   return (
     <section className="py-24 md:py-32 px-6 bg-white border-t border-[#ebebeb]">
       <div className="max-w-3xl mx-auto">
-        <FadeIn className="text-center mb-16">
-          <p className="text-xs font-bold tracking-widest uppercase text-gold mb-4">
+
+        <motion.div
+          className="text-center mb-16"
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+        >
+          <motion.p variants={blurUp} className="text-xs font-bold tracking-widest uppercase text-gold mb-4">
             FAQs
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-ink">
+          </motion.p>
+          <motion.h2 variants={blurUp} className="font-display text-3xl md:text-4xl font-bold text-ink">
             Common questions
-          </h2>
-          <p className="text-[#666] mt-4 text-base">
+          </motion.h2>
+          <motion.p variants={blurUp} className="text-[#666] mt-4 text-base">
             Still unsure? Chances are the answer&apos;s here.
-          </p>
-        </FadeIn>
+          </motion.p>
+        </motion.div>
 
-        <FadeIn delay={100}>
-          <div className="border border-[#e8e8e8] rounded-sm overflow-hidden bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] divide-y divide-[#f0f0f0]">
-            {faqs.map((faq, i) => (
-              <div key={i}>
-                <button
-                  className="w-full text-left px-7 py-6 flex items-center justify-between gap-6 hover:bg-stone transition-colors duration-150 group"
-                  onClick={() => setOpen(open === i ? null : i)}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease }}
+          className="border border-[#e8e8e8] rounded-sm overflow-hidden bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] divide-y divide-[#f0f0f0]"
+        >
+          {faqs.map((faq, i) => (
+            <div key={i}>
+              <button
+                className="w-full text-left px-7 py-6 flex items-center justify-between gap-6 hover:bg-stone transition-colors duration-150 group"
+                onClick={() => setOpen(open === i ? null : i)}
+              >
+                <span className={`font-semibold text-base leading-snug transition-colors duration-150 ${open === i ? "text-gold" : "text-ink group-hover:text-gold"}`}>
+                  {faq.q}
+                </span>
+                <motion.span
+                  animate={{ rotate: open === i ? 45 : 0 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-sm leading-none ${
+                    open === i ? "border-gold text-gold" : "border-[#d0d0d0] text-[#888]"
+                  }`}
                 >
-                  <span className="font-semibold text-ink text-base leading-snug group-hover:text-gold transition-colors duration-150">
-                    {faq.q}
-                  </span>
-                  <span
-                    className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-sm leading-none transition-all duration-200 ${
-                      open === i
-                        ? "border-gold text-gold rotate-45"
-                        : "border-[#d0d0d0] text-[#888]"
-                    }`}
-                  >
-                    +
-                  </span>
-                </button>
-                {open === i && (
-                  <div className="pl-5 pr-7 pb-6 bg-stone border-l-2 border-gold ml-0">
-                    <p className="text-[#555] leading-relaxed text-sm md:text-base pl-2">
-                      {faq.a}
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </FadeIn>
+                  +
+                </motion.span>
+              </button>
 
-        <FadeIn delay={150} className="mt-10 text-center">
-          <p className="text-[#888] text-sm mb-4">
-            Have a question that&apos;s not listed here?
-          </p>
+              <AnimatePresence initial={false}>
+                {open === i && (
+                  <motion.div
+                    key="answer"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pl-5 pr-7 pb-6 bg-stone border-l-2 border-gold">
+                      <p className="text-[#555] leading-relaxed text-sm md:text-base pl-2">
+                        {faq.a}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="mt-10 text-center"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease }}
+        >
+          <p className="text-[#888] text-sm mb-4">Have a question that&apos;s not listed here?</p>
           <a
             href="/contact"
             className="inline-flex items-center gap-2 text-ink font-semibold text-sm border-b border-ink hover:border-gold hover:text-gold transition-colors duration-150 pb-0.5"
           >
             Get in touch directly
           </a>
-        </FadeIn>
+        </motion.div>
       </div>
     </section>
   );

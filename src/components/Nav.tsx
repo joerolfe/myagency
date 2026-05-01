@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Services", href: "/services", id: "services" },
+  { label: "Automations", href: "/automations", id: "automations" },
   { label: "Portfolio", href: "/#portfolio", id: "portfolio" },
   { label: "Process", href: "/#process", id: "process" },
   { label: "About", href: "/#about", id: "about" },
@@ -18,7 +19,11 @@ export default function Nav() {
   const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.6);
+    const handleScroll = () => {
+      const y = window.scrollY;
+      setPastHero(y > window.innerHeight * 0.6);
+      if (y < 80) setActiveSection("");
+    };
     window.addEventListener("scroll", handleScroll);
 
     const observers: IntersectionObserver[] = [];
@@ -54,7 +59,13 @@ export default function Nav() {
           <Link
             href="/"
             className="font-display text-sm font-bold text-white whitespace-nowrap pr-3 border-r border-white/10 mr-1"
-            onClick={() => setMenuOpen(false)}
+            onClick={(e) => {
+              setMenuOpen(false);
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
           >
             Rolfe<span className="text-gold">.</span>
           </Link>
