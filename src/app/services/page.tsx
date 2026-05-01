@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Comparison from "@/components/Comparison";
+import PricingCards from "@/components/PricingCards";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -87,56 +88,6 @@ const included = [
   },
 ];
 
-const packages = [
-  {
-    name: "Starter",
-    price: "£299",
-    who: "Perfect if you have no website and just need to get online professionally.",
-    outcome: "Stop losing customers to competitors who have a website and you don't.",
-    features: [
-      "1–3 custom pages",
-      "Mobile responsive design",
-      "Contact form",
-      "Google Maps embed",
-      "Basic on-page SEO",
-      "Domain setup assistance",
-    ],
-    featured: false,
-    cta: "Get Started",
-  },
-  {
-    name: "Standard",
-    price: "£599",
-    who: "For businesses that want to stand out locally and start winning more enquiries.",
-    outcome: "Show up on Google and turn more visitors into paying customers.",
-    features: [
-      "Up to 6 custom pages",
-      "Image & work gallery",
-      "SEO setup — titles, meta, structure",
-      "Google Business profile setup",
-      "Social media links",
-      "Blog-ready structure",
-    ],
-    featured: true,
-    cta: "Get Started",
-  },
-  {
-    name: "Premium",
-    price: "£999",
-    who: "For businesses that want a complete digital presence that does the selling for them.",
-    outcome: "A full digital presence that generates enquiries around the clock.",
-    features: [
-      "6+ fully custom pages",
-      "Blog / news section",
-      "Booking or enquiry system",
-      "Full SEO setup & strategy",
-      "Google Analytics setup",
-      "Performance & speed optimisation",
-    ],
-    featured: false,
-    cta: "Get Started",
-  },
-];
 
 const addons = [
   {
@@ -186,8 +137,6 @@ const faqs = [
   },
 ];
 
-// ── Components ────────────────────────────────────────────────────
-
 function CheckIcon({ color = "#c9a84c" }: { color?: string }) {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0 mt-0.5">
@@ -196,8 +145,6 @@ function CheckIcon({ color = "#c9a84c" }: { color?: string }) {
     </svg>
   );
 }
-
-// ── Page ──────────────────────────────────────────────────────────
 
 export default function ServicesPage() {
   return (
@@ -263,67 +210,7 @@ export default function ServicesPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 items-start">
-              {packages.map((pkg) => (
-                <div
-                  key={pkg.name}
-                  className={`relative flex flex-col rounded-sm overflow-hidden hover:-translate-y-1.5 transition-transform duration-300 ${
-                    pkg.featured
-                      ? "border-2 border-gold shadow-[0_8px_32px_rgba(201,168,76,0.2)]"
-                      : "border border-[#e8e8e8] shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
-                  }`}
-                >
-                  {pkg.featured && (
-                    <div className="bg-gold px-6 py-2.5 text-center">
-                      <span className="text-white text-xs font-bold tracking-widest uppercase">Most Popular</span>
-                    </div>
-                  )}
-
-                  <div className={`flex flex-col flex-1 p-7 ${pkg.featured ? "bg-white" : "bg-stone"}`}>
-                    {/* Header */}
-                    <div className="mb-6">
-                      <h3 className="font-display text-xl font-bold text-ink mb-1">{pkg.name}</h3>
-                      <div className="font-display text-4xl font-bold text-ink mb-1">
-                        {pkg.price}
-                        <span className="text-base font-sans font-normal text-[#999] ml-1">one-off</span>
-                      </div>
-                      <p className="text-[#888] text-xs leading-relaxed mt-2 italic">{pkg.who}</p>
-                    </div>
-
-                    {/* Outcome */}
-                    <div className="flex items-start gap-2 bg-gold/8 border border-gold/20 rounded-sm px-3 py-2.5 mb-6">
-                      <span className="text-gold text-xs mt-0.5 flex-shrink-0 font-bold">→</span>
-                      <p className="text-[#7a5c1e] text-xs leading-relaxed font-medium">{pkg.outcome}</p>
-                    </div>
-
-                    {/* Features */}
-                    <ul className="space-y-3 mb-8 flex-1">
-                      {pkg.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2.5">
-                          <CheckIcon />
-                          <span className="text-[#444] text-sm">{f}</span>
-                        </li>
-                      ))}
-                      <li className="flex items-start gap-2.5 opacity-50">
-                        <CheckIcon />
-                        <span className="text-[#444] text-sm">Everything in the "included" list above</span>
-                      </li>
-                    </ul>
-
-                    <Link
-                      href="/contact"
-                      className={`block text-center py-3.5 text-sm font-semibold tracking-wide transition-all duration-150 rounded-sm ${
-                        pkg.featured
-                          ? "bg-gold text-white hover:bg-[#b8912e] shadow-[0_4px_14px_rgba(201,168,76,0.3)]"
-                          : "border border-[#d0d0d0] text-ink hover:border-ink hover:bg-ink hover:text-white"
-                      }`}
-                    >
-                      {pkg.cta}
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <PricingCards />
 
             <p className="text-center text-[#999] text-sm mt-8">
               Not sure which package is right for you?{" "}
