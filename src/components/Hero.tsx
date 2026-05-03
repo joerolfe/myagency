@@ -215,7 +215,7 @@ function BrowserMockup() {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
-const headlineWords = ["Your", "business", "deserves", "a", "website", "that"];
+const headlineWords = ["Grow", "your", "local", "business"];
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -233,7 +233,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 px-6 bg-white overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-8 px-6 bg-white overflow-hidden"
     >
       {/* ── Animated background blobs ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -285,12 +285,12 @@ export default function Hero() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
                 <span className="text-green-700 text-xs font-semibold">
-                  Currently accepting new clients
+                  3 spots left this month
                 </span>
               </div>
               <div className="inline-flex items-center gap-2 bg-gold/10 rounded-full px-3.5 py-1.5">
                 <span className="text-[#7a5c1e] text-xs font-semibold">
-                  Derbyshire &amp; Staffordshire
+                  Taking on 3 new clients this month — Derbyshire &amp; Staffordshire
                 </span>
               </div>
             </motion.div>
@@ -313,8 +313,7 @@ export default function Hero() {
                 variants={blurUp}
                 className="inline-block text-gold italic relative"
               >
-                actually works
-                {/* Shimmer line under the gold text */}
+                the smart way.
                 <motion.span
                   className="absolute bottom-0 left-0 h-[2px] bg-gold/40 rounded-full"
                   initial={{ width: "0%" }}
@@ -327,10 +326,9 @@ export default function Hero() {
             {/* Subtext */}
             <motion.p
               variants={blurUp}
-              className="text-lg text-[#555] leading-relaxed mb-9 max-w-lg"
+              className="text-lg text-[#555] leading-relaxed mb-6 max-w-lg"
             >
-              I build fast, professional websites for local businesses — and
-              handle everything so you don&apos;t have to.
+              I build professional websites and set up smart automations for local businesses — so you get more customers and spend less time chasing them.
             </motion.p>
 
             {/* CTAs */}
@@ -355,7 +353,7 @@ export default function Hero() {
               </motion.a>
             </motion.div>
 
-            <motion.p variants={blurUp} className="text-sm text-[#888] mb-9">
+            <motion.p variants={blurUp} className="text-sm text-[#888] mb-6">
               Websites from{" "}
               <span className="text-ink font-semibold">£299</span> — free demo, no commitment.
             </motion.p>
@@ -390,7 +388,7 @@ export default function Hero() {
 
         {/* ── Stats bar ── */}
         <motion.div
-          className="relative mt-16 lg:mt-20"
+          className="relative mt-8 lg:mt-10"
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.85, ease }}

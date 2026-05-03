@@ -5,6 +5,7 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import AutomationDemos from "@/components/AutomationDemos";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -18,93 +19,14 @@ const blurUp: Variants = {
   show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.72, ease } },
 };
 
-// ── Icons ─────────────────────────────────────────────────────────────────────
-
-const PhoneIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <path d="M20 15.5l-3-2.3a1.5 1.5 0 00-1.8.1l-1.4 1.4a11 11 0 01-5.5-5.5L9.7 7.8a1.5 1.5 0 00.1-1.8L7.5 3a1.5 1.5 0 00-1.8-.5L3.3 3.8A1.5 1.5 0 002.5 5C2.5 13.6 8.4 19.5 17 19.5a1.5 1.5 0 001.2-.8l1.3-2.4A1.5 1.5 0 0020 15.5z" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
-
-const StarIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <path d="M11 2l2.5 5.5L19 8.4l-4 3.9 1 5.5L11 15.1l-5 2.7 1-5.5-4-3.9 5.5-.9L11 2z" stroke="#c9a84c" strokeWidth="1.5" strokeLinejoin="round"/>
-  </svg>
-);
-
-const MessageIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <path d="M3 4.5C3 3.4 3.9 2.5 5 2.5h12c1.1 0 2 .9 2 2V14c0 1.1-.9 2-2 2h-6l-5 3.5V16H5c-1.1 0-2-.9-2-2V4.5z" stroke="#c9a84c" strokeWidth="1.5" strokeLinejoin="round"/>
-    <path d="M7 8.5h8M7 12h5" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
-
-const CalendarIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <rect x="2.5" y="4" width="17" height="16" rx="2" stroke="#c9a84c" strokeWidth="1.5"/>
-    <path d="M7 2.5V5.5M15 2.5V5.5M2.5 9h17" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M7 13h2v2H7z" fill="#c9a84c" fillOpacity="0.6"/>
-  </svg>
-);
-
-const ChatIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <path d="M11 2.5C6.3 2.5 2.5 5.9 2.5 10c0 1.6.6 3.2 1.7 4.4L3 19l4.8-1.5A9 9 0 0011 17.5c4.7 0 8.5-3.4 8.5-7.5S15.7 2.5 11 2.5z" stroke="#c9a84c" strokeWidth="1.5" strokeLinejoin="round"/>
-    <path d="M7.5 10h7M7.5 13h4" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
-
-const BoltIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <path d="M13 2L4 13h7l-2 7L20 9h-7l2-7z" stroke="#c9a84c" strokeWidth="1.5" strokeLinejoin="round"/>
-  </svg>
-);
-
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const automations = [
-  {
-    icon: <PhoneIcon />,
-    title: "Missed Call Text-Back",
-    description: "Customer calls and you can't answer? They instantly get a text saying you'll call back — so they don't ring your competitor.",
-    setup: 125,
-    monthly: 30,
-  },
-  {
-    icon: <StarIcon />,
-    title: "Google Review Requests",
-    description: "After every job, your customer automatically gets a text asking for a Google review. More reviews, higher ranking, more calls.",
-    setup: 125,
-    monthly: 25,
-  },
-  {
-    icon: <MessageIcon />,
-    title: "Lead Follow-Up",
-    description: "Someone fills your contact form and gets an instant reply — even at midnight. Keeps the lead warm before you've even seen the enquiry.",
-    setup: 150,
-    monthly: 35,
-  },
-  {
-    icon: <CalendarIcon />,
-    title: "Appointment Reminders",
-    description: "Automatic reminder sent to your customers the day before their appointment. Cuts no-shows without you lifting a finger.",
-    setup: 125,
-    monthly: 25,
-  },
-  {
-    icon: <ChatIcon />,
-    title: "Website Chatbot",
-    description: "A smart chatbot on your website that answers common questions and captures leads 24/7 — even when you're on the job.",
-    setup: 200,
-    monthly: 40,
-  },
-  {
-    icon: <BoltIcon />,
-    title: "Full Automation Bundle",
-    description: "Get 3 automations set up together at a reduced rate. The most popular option for trades businesses wanting the full system.",
-    setup: 350,
-    monthly: 75,
-  },
+  { title: "Missed Call Text-Back", setup: 125, monthly: 30 },
+  { title: "Google Review Requests", setup: 125, monthly: 25 },
+  { title: "Lead Follow-Up", setup: 150, monthly: 35 },
+  { title: "Appointment Reminders", setup: 125, monthly: 25 },
+  { title: "Website Chatbot", setup: 200, monthly: 40 },
 ];
 
 const steps = [
@@ -140,38 +62,6 @@ const faqs = [
 ];
 
 // ── Components ────────────────────────────────────────────────────────────────
-
-function AutomationCard({ a, index }: { a: (typeof automations)[number]; index: number }) {
-  const isBundle = index === 5;
-  return (
-    <motion.div
-      variants={blurUp}
-      whileHover={{ y: -5, boxShadow: isBundle ? "0 20px 48px rgba(201,168,76,0.22)" : "0 16px 40px rgba(201,168,76,0.10)" }}
-      transition={{ type: "spring", stiffness: 260, damping: 22 }}
-      className={`flex flex-col gap-4 rounded-xl p-6 cursor-default min-h-[280px] ${
-        isBundle ? "bg-ink border-2 border-gold/40" : "bg-ink border border-gold/20"
-      }`}
-    >
-      <span className={`self-start text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full border ${
-        isBundle ? "bg-gold/15 text-gold border-gold/25" : "opacity-0 border-transparent"
-      }`}>
-        Best value
-      </span>
-      <div className="w-11 h-11 rounded-xl bg-gold/10 flex items-center justify-center">
-        {a.icon}
-      </div>
-      <div className="flex-1">
-        <h3 className="font-display text-lg font-bold text-white mb-2">{a.title}</h3>
-        <p className="text-white/50 text-sm leading-relaxed">{a.description}</p>
-      </div>
-      <div className="border-t border-white/8 pt-4 flex items-center justify-between gap-2">
-        <span className="text-gold text-sm font-semibold">Setup £{a.setup}</span>
-        <span className="text-white/35 text-xs">·</span>
-        <span className="text-gold text-sm font-semibold">£{a.monthly}/mo</span>
-      </div>
-    </motion.div>
-  );
-}
 
 function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
@@ -284,38 +174,7 @@ export default function AutomationsPage() {
           </motion.div>
         </div>
 
-        {/* ── WHAT'S INCLUDED ───────────────────────────────────── */}
-        <section className="py-20 md:py-28 px-6 bg-ink border-t border-white/5">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              className="text-center mb-14"
-              variants={stagger}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-80px" }}
-            >
-              <motion.p variants={blurUp} className="text-xs font-bold tracking-widest uppercase text-gold mb-4">Automations</motion.p>
-              <motion.h2 variants={blurUp} className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                What I can automate for your business
-              </motion.h2>
-              <motion.p variants={blurUp} className="text-white/50 text-base max-w-xl mx-auto">
-                Every automation is set up and managed for you — one-off setup fee, then a small monthly retainer.
-              </motion.p>
-            </motion.div>
-
-            <motion.div
-              className="grid md:grid-cols-3 gap-5"
-              variants={stagger}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-60px" }}
-            >
-              {automations.map((a, i) => (
-                <AutomationCard key={a.title} a={a} index={i} />
-              ))}
-            </motion.div>
-          </div>
-        </section>
+        <AutomationDemos />
 
         {/* ── HOW IT WORKS ──────────────────────────────────────── */}
         <section className="py-20 md:py-28 px-6 bg-white border-t border-[#e8e8e8]">

@@ -53,7 +53,7 @@ function TiltCard({ pkg }: { pkg: (typeof packages)[number] }) {
   }
 
   return (
-    <motion.div variants={blurUp} style={{ perspective: "1000px" }} className={pkg.featured ? "pt-4" : ""}>
+    <motion.div variants={blurUp} style={{ perspective: "1000px" }} className="pt-4">
       <div
         ref={ref}
         onMouseMove={onMove}
