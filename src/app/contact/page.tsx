@@ -120,13 +120,23 @@ export default function ContactPage() {
   }
 
   return (
-    <main style={{ background: "#0a0a0a" }}>
+    <main style={{ background: "#0a0a0a", position: "relative" }}>
+      {/* Background */}
+      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+        {/* Top spotlight */}
+        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "100%", height: "70vh", background: "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(201,168,76,0.25) 0%, transparent 70%)" }} />
+        {/* Bottom-left warm glow */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, width: "60vw", height: "50vh", background: "radial-gradient(ellipse 80% 80% at 0% 100%, rgba(201,168,76,0.15) 0%, transparent 65%)" }} />
+        {/* Topographic lines */}
+        <div style={{ position: "absolute", inset: 0, opacity: 0.04, backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cellipse cx='300' cy='300' rx='280' ry='180' fill='none' stroke='%23c9a84c' stroke-width='0.8'/%3E%3Cellipse cx='300' cy='300' rx='220' ry='135' fill='none' stroke='%23c9a84c' stroke-width='0.8'/%3E%3Cellipse cx='300' cy='300' rx='160' ry='95' fill='none' stroke='%23c9a84c' stroke-width='0.8'/%3E%3Cellipse cx='300' cy='300' rx='100' ry='58' fill='none' stroke='%23c9a84c' stroke-width='0.8'/%3E%3C/svg%3E")`, backgroundSize: "600px 600px", backgroundPosition: "center" }} />
+        {/* Gold grid */}
+        <div style={{ position: "absolute", inset: 0, opacity: 0.03, backgroundImage: "linear-gradient(rgba(201,168,76,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+      </div>
+
       <HomeNav />
 
       {/* Hero */}
-      <section className="relative overflow-hidden pt-36 pb-20 px-6">
-        <div className="absolute top-0 right-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 65%)" }} />
-        <div className="absolute bottom-0 left-[-5%] w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 65%)" }} />
+      <section className="relative pt-36 pb-20 px-6" style={{ zIndex: 1 }}>
 
         <motion.div className="relative max-w-3xl mx-auto text-center" variants={stagger} initial="hidden" animate="show">
           <motion.p variants={blurUp} className="text-[10px] font-black tracking-[0.4em] uppercase mb-5" style={{ color: "#c9a84c" }}>Get in Touch</motion.p>
@@ -150,7 +160,7 @@ export default function ContactPage() {
       </section>
 
       {/* Joe strip */}
-      <section className="px-6 py-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section className="px-6 py-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", zIndex: 1 }}>
         <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-6" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
           <div className="flex items-center gap-4">
             <div className="relative flex-shrink-0">
@@ -175,7 +185,7 @@ export default function ContactPage() {
       </section>
 
       {/* Form */}
-      <section className="px-6 pb-24">
+      <section className="px-6 pb-24" style={{ position: "relative", zIndex: 1 }}>
         <motion.div
           className="max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 40 }}

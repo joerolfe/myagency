@@ -1,5 +1,5 @@
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import HomeNav from "@/components/home/HomeNav";
+import HomeFooter from "@/components/home/HomeFooter";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -45,44 +45,68 @@ const sections = [
 
 export default function Privacy() {
   return (
-    <>
-      <Nav />
-      <main className="min-h-screen bg-white pt-24 pb-24 px-6">
-        <div className="max-w-2xl mx-auto">
-          <p className="text-xs font-bold tracking-widest uppercase text-gold mb-4">
-            Legal
-          </p>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-ink mb-4 leading-tight">
-            Privacy Policy
-          </h1>
-          <p className="text-[#888] text-sm mb-12">
-            Last updated: April 2026
-          </p>
+    <main style={{ background: "#0a0a0a", minHeight: "100vh" }}>
+      <HomeNav />
 
-          <div className="space-y-10">
-            {sections.map((section) => (
-              <div key={section.title}>
-                <h2 className="font-display text-xl font-bold text-ink mb-3">
-                  {section.title}
-                </h2>
-                <p className="text-[#555] leading-relaxed text-base">
-                  {section.body}
-                </p>
+      <div className="max-w-2xl mx-auto px-6 pt-36 pb-24">
+        <p className="text-[10px] font-black tracking-[0.4em] uppercase mb-4" style={{ color: "#c9a84c" }}>
+          Legal
+        </p>
+        <h1
+          className="font-black text-white leading-none mb-4"
+          style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(36px, 6vw, 64px)", letterSpacing: "-0.04em" }}
+        >
+          Privacy Policy
+        </h1>
+        <p className="text-sm mb-16" style={{ color: "rgba(255,255,255,0.3)" }}>
+          Last updated: April 2026
+        </p>
+
+        <div className="space-y-0">
+          {sections.map((section, i) => (
+            <div
+              key={section.title}
+              className="py-8"
+              style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+            >
+              <div className="flex gap-6 items-start">
+                <span
+                  className="text-[11px] font-black tracking-[0.2em] pt-1 flex-shrink-0 w-6"
+                  style={{ color: "rgba(201,168,76,0.4)" }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h2
+                    className="font-black text-white mb-3"
+                    style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(16px, 2vw, 20px)", letterSpacing: "-0.02em" }}
+                  >
+                    {section.title}
+                  </h2>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+                    {section.body}
+                  </p>
+                </div>
               </div>
-            ))}
-          </div>
-
-          <div className="mt-14 pt-8 border-t border-[#ebebeb]">
-            <p className="text-[#888] text-sm">
-              Questions about this policy?{" "}
-              <Link href="/contact" className="text-gold font-semibold hover:underline">
-                Get in touch.
-              </Link>
-            </p>
-          </div>
+            </div>
+          ))}
         </div>
-      </main>
-      <Footer />
-    </>
+
+        <div className="mt-12 pt-8 flex items-center justify-between" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>
+            Questions about this policy?
+          </p>
+          <Link
+            href="/contact"
+            className="text-[12px] font-black tracking-[0.1em] uppercase transition-opacity hover:opacity-70"
+            style={{ color: "#c9a84c" }}
+          >
+            Get in touch →
+          </Link>
+        </div>
+      </div>
+
+      <HomeFooter />
+    </main>
   );
 }

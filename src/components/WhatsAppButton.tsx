@@ -10,7 +10,7 @@ export default function WhatsAppButton() {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
 
-  if (pathname.startsWith("/demo")) return null;
+  if (pathname.startsWith("/demo") || pathname === "/contact") return null;
 
   useEffect(() => {
     const footer = document.querySelector("footer");
