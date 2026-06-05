@@ -255,113 +255,120 @@ export default function HomeFooter() {
       {/* Card with notch clipped directly into the shape */}
       <div className="relative px-4 md:px-6 pt-4" style={{ zIndex: 1 }}>
         <CardWithNotch>
-        <div
-          className="relative min-h-screen flex flex-col justify-between px-8 md:px-12 pt-20 pb-10 overflow-hidden"
-        >
+        <div className="relative flex flex-col px-6 md:px-12 pt-36 md:pt-20 pb-10 overflow-hidden" style={{ minHeight: "clamp(700px, 100vh, 900px)" }}>
         {/* Topographic gold pattern */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Cellipse cx='400' cy='400' rx='380' ry='260' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='310' ry='200' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='240' ry='145' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='170' ry='95' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='100' ry='50' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='150' cy='150' rx='180' ry='130' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='650' cy='650' rx='200' ry='140' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Cellipse cx='400' cy='400' rx='380' ry='260' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='310' ry='200' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='240' ry='145' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='170' ry='95' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3Cellipse cx='400' cy='400' rx='100' ry='50' fill='none' stroke='%23c9a84c' stroke-width='0.6'/%3E%3C/svg%3E")`,
             backgroundSize: "800px 800px",
             backgroundPosition: "center",
             opacity: 0.06,
           }}
         />
-        {/* Three-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 flex-1">
 
-          {/* Left — Pages */}
-          <div className="flex flex-col gap-2 self-end pl-8 md:pl-20 translate-y-[10px]">
-            <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
-              Pages
-            </p>
-            {pages.map((p) => (
-              <FlipLink
-                key={p.label}
-                label={p.label}
-                href={p.href}
-                className="font-black leading-tight"
-                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.03em", color: "white" }}
-              />
-            ))}
+        {/* ── MOBILE layout: nav top → headline → CTA ── */}
+        <div className="flex flex-col h-full md:hidden gap-8">
+
+          {/* Pages + Socials side by side */}
+          <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Pages</p>
+              {pages.map((p) => (
+                <FlipLink key={p.label} label={p.label} href={p.href} className="font-black leading-tight"
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "18px", letterSpacing: "-0.03em", color: "white" }} />
+              ))}
+            </div>
+            <div className="flex flex-col gap-1.5 items-end">
+              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Follow On</p>
+              {socials.map((s) => (
+                <FlipLink key={s.label} label={s.label} href={s.href} external={s.href.startsWith("http")} className="font-black leading-tight"
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "18px", letterSpacing: "-0.03em", color: "white" }} />
+              ))}
+              <div className="mt-4">
+                <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-1.5 text-right" style={{ color: "rgba(255,255,255,0.3)" }}>Call Us</p>
+                <FlipLink label={phone.display} href={phone.href} className="font-black"
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "14px", letterSpacing: "-0.02em", color: "white" }} />
+              </div>
+            </div>
           </div>
 
-          {/* Centre — large statement + CTA */}
-          <div className="flex flex-col items-center justify-center text-center gap-8 py-12 md:py-0">
+          {/* Big headline in the middle */}
+          <div className="flex-1 flex flex-col items-center justify-center text-center gap-6">
             <h2
               ref={headingRef}
               className="font-black text-white leading-none"
-              style={{
-                fontFamily: "var(--font-geist-sans), sans-serif",
-                fontSize: "clamp(36px, 5.5vw, 72px)",
-                letterSpacing: "-0.04em",
-              }}
+              style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(36px, 10vw, 56px)", letterSpacing: "-0.04em" }}
             >
-              Ready to grow<br />
-              <span style={{ color: "#c9a84c" }}>your business?</span>
+              Ready to grow<br /><span style={{ color: "#c9a84c" }}>your business?</span>
             </h2>
-
-            <a
-              ref={btnRef}
-              href="/contact"
-              className="group inline-flex items-center gap-3 px-8 py-4 font-bold text-[12px] tracking-widest uppercase transition-all duration-200 hover:opacity-90"
-              style={{ background: "#c9a84c", color: "#0a0a0a", display: "inline-flex" }}
-            >
-              Book a Free Call
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </a>
-
-            <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.2)" }}>
-              Free demo · No upfront cost · You own the site
-            </p>
+            <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.2)" }}>Free demo · No upfront cost · You own the site</p>
           </div>
 
-          {/* Right — Follow on */}
-          <div className="flex flex-col items-start md:items-end gap-2 self-end pr-8 md:pr-20 translate-y-[10px]">
-            <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
-              Follow On
-            </p>
-            {socials.map((s) => (
-              <FlipLink
-                key={s.label}
-                label={s.label}
-                href={s.href}
-                external={s.href.startsWith("http")}
-                className="font-black leading-tight"
-                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.03em", color: "white" }}
-              />
-            ))}
+          {/* CTA button at the bottom */}
+          <a
+            ref={btnRef}
+            href="/contact"
+            className="flex items-center justify-between w-full px-6 py-4 font-black text-[13px] tracking-widest uppercase"
+            style={{ background: "#c9a84c", color: "#0a0a0a" }}
+          >
+            Book a Free Call
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </a>
 
-            <div className="mt-8">
-              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
-                Call Us
-              </p>
-              <FlipLink
-                label={phone.display}
-                href={phone.href}
-                className="font-black"
-                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(16px, 2vw, 24px)", letterSpacing: "-0.02em", color: "white" }}
-              />
-            </div>
+          {/* Wordmark */}
+          <div className="flex justify-center pb-2">
+            <Link href="/" className="font-black text-white/5 leading-none"
+              style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(56px, 20vw, 100px)", letterSpacing: "-0.05em" }}>
+              Rolfe<span style={{ color: "rgba(201,168,76,0.08)" }}>.</span>
+            </Link>
           </div>
         </div>
 
-        {/* Rolfe. wordmark */}
-        <div className="flex justify-center py-12 md:py-16">
-          <Link
-            href="/"
-            className="font-black text-white/5 hover:text-white/10 transition-colors duration-300 leading-none"
-            style={{
-              fontFamily: "var(--font-geist-sans), sans-serif",
-              fontSize: "clamp(80px, 16vw, 200px)",
-              letterSpacing: "-0.05em",
-            }}
-          >
-            Rolfe<span style={{ color: "rgba(201,168,76,0.08)" }}>.</span>
-          </Link>
+        {/* ── DESKTOP layout: original 3-col ── */}
+        <div className="hidden md:flex flex-col justify-between flex-1">
+          <div className="grid md:grid-cols-3 gap-6 flex-1">
+            <div className="flex flex-col gap-2 self-end pl-20 translate-y-[10px]">
+              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>Pages</p>
+              {pages.map((p) => (
+                <FlipLink key={p.label} label={p.label} href={p.href} className="font-black leading-tight"
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.03em", color: "white" }} />
+              ))}
+            </div>
+            <div className="flex flex-col items-center justify-center text-center gap-8">
+              <h2 ref={headingRef} className="font-black text-white leading-none"
+                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(36px, 5.5vw, 72px)", letterSpacing: "-0.04em" }}>
+                Ready to grow<br /><span style={{ color: "#c9a84c" }}>your business?</span>
+              </h2>
+              <a ref={btnRef} href="/contact"
+                className="inline-flex items-center gap-3 px-8 py-4 font-bold text-[12px] tracking-widest uppercase transition-all duration-200 hover:opacity-90"
+                style={{ background: "#c9a84c", color: "#0a0a0a" }}>
+                Book a Free Call
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+              </a>
+              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.2)" }}>Free demo · No upfront cost · You own the site</p>
+            </div>
+            <div className="flex flex-col items-end gap-2 self-end pr-20 translate-y-[10px]">
+              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>Follow On</p>
+              {socials.map((s) => (
+                <FlipLink key={s.label} label={s.label} href={s.href} external={s.href.startsWith("http")} className="font-black leading-tight"
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.03em", color: "white" }} />
+              ))}
+              <div className="mt-8">
+                <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Call Us</p>
+                <FlipLink label={phone.display} href={phone.href} className="font-black"
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(16px, 2vw, 24px)", letterSpacing: "-0.02em", color: "white" }} />
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center py-16">
+            <Link href="/" className="font-black text-white/5 hover:text-white/10 transition-colors duration-300 leading-none"
+              style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(80px, 16vw, 200px)", letterSpacing: "-0.05em" }}>
+              Rolfe<span style={{ color: "rgba(201,168,76,0.08)" }}>.</span>
+            </Link>
+          </div>
         </div>
 
         {/* Marquee strip — inside card at bottom */}

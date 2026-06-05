@@ -58,9 +58,10 @@ const sites = [
 function cardStyle(pos: number): React.CSSProperties {
   const tr = "transform 0.9s cubic-bezier(0.4,0,0.2,1), opacity 0.9s ease";
   if (pos === 0) return { transform: "translateX(-50%) scale(1)", opacity: 1, zIndex: 10, transition: tr };
-  if (pos === 1) return { transform: `translateX(calc(${HALF + GAP}px)) rotateY(-22deg) scale(0.92)`, opacity: 0.4, zIndex: 5, transition: tr };
-  return { transform: `translateX(calc(-${HALF + CARD_W + GAP}px)) rotateY(22deg) scale(0.92)`, opacity: 0.4, zIndex: 5, transition: tr };
+  if (pos === 1) return { transform: `translateX(calc(${HALF + GAP}px)) rotateY(-22deg) scale(0.92)`, opacity: 0.6, zIndex: 5, transition: tr };
+  return { transform: `translateX(calc(-${HALF + CARD_W + GAP}px)) rotateY(22deg) scale(0.92)`, opacity: 0.6, zIndex: 5, transition: tr };
 }
+
 
 export default function WorkSection() {
   const [active, setActive] = useState(0);
@@ -72,7 +73,7 @@ export default function WorkSection() {
   }, []);
 
   useEffect(() => {
-    const update = () => setScale(Math.min(1, window.innerWidth / 780));
+    const update = () => setScale(Math.min(1, window.innerWidth / 1000));
     update();
     window.addEventListener("resize", update, { passive: true });
     return () => window.removeEventListener("resize", update);
@@ -121,27 +122,10 @@ export default function WorkSection() {
             {sites.map((site, i) => {
               const pos = ((i - active) % 3 + 3) % 3;
               return (
-                <div
-                  key={site.url}
-                  className="absolute top-0 left-1/2 cursor-pointer"
-                  style={{ width: CARD_W, ...cardStyle(pos) }}
-                  onClick={() => pos !== 0 && setActive(i)}
-                >
+                <div key={site.url} className="absolute top-0 left-1/2 cursor-pointer" style={{ width: CARD_W, ...cardStyle(pos) }} onClick={() => pos !== 0 && setActive(i)}>
                   <BrowserShell>
-                    <iframe
-                      src={site.iframe}
-                      title={site.business}
-                      scrolling="no"
-                      style={{
-                        width: 1280,
-                        height: IFRAME_H,
-                        transform: `scale(${IFRAME_SCALE})`,
-                        transformOrigin: "top left",
-                        border: "none",
-                        pointerEvents: "none",
-                        display: "block",
-                      }}
-                    />
+                    <iframe src={site.iframe} title={site.business} scrolling="no"
+                      style={{ width: 1280, height: IFRAME_H, transform: `scale(${IFRAME_SCALE})`, transformOrigin: "top left", border: "none", pointerEvents: "none", display: "block" }} />
                   </BrowserShell>
                 </div>
               );

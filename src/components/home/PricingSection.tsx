@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 
@@ -232,6 +232,68 @@ function PkgCard({ pkg, href }: { pkg: Pkg; href: string }) {
   );
 }
 
+function MobileCarousel({ items, href }: { items: Pkg[]; href: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(1);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Scroll to centre the middle card on mount
+    const card = el.children[1] as HTMLElement;
+    if (card) {
+      el.scrollLeft = card.offsetLeft - (el.offsetWidth - card.offsetWidth) / 2;
+    }
+
+    // Update active dot on scroll
+    const onScroll = () => {
+      const cardWidth = (el.children[0] as HTMLElement)?.offsetWidth ?? 0;
+      const gap = 16;
+      const index = Math.round(el.scrollLeft / (cardWidth + gap));
+      setActive(Math.min(Math.max(index, 0), items.length - 1));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [items.length]);
+
+  return (
+    <div className="md:hidden">
+      <div
+        ref={ref}
+        className="-mx-6 flex gap-4 overflow-x-auto pb-4 pl-6 pr-6"
+        style={{ scrollbarWidth: "none", scrollSnapType: "x mandatory" }}
+      >
+        {items.map((pkg) => (
+          <div key={pkg.name} className="flex-shrink-0 w-[78vw]" style={{ scrollSnapAlign: "center" }}>
+            <PkgCard pkg={pkg} href={href} />
+          </div>
+        ))}
+      </div>
+
+      {/* Dots */}
+      <div className="flex items-center justify-center gap-2 mt-4">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              const el = ref.current;
+              if (!el) return;
+              const card = el.children[i] as HTMLElement;
+              el.scrollTo({ left: card.offsetLeft - (el.offsetWidth - card.offsetWidth) / 2, behavior: "smooth" });
+            }}
+            className="h-1.5 rounded-full transition-all duration-300"
+            style={{
+              width: active === i ? 24 : 6,
+              background: active === i ? "#c9a84c" : "rgba(255,255,255,0.2)",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function SectionHeader({ label, title }: { label: string; title: string }) {
   return (
     <motion.div
@@ -261,8 +323,12 @@ export default function PricingSection() {
         {/* ── Website packages ── */}
         <div className="mb-24">
           <SectionHeader label="Packages" title="Website Design" />
+
+          <MobileCarousel items={websitePackages} href="/services" />
+
+          {/* Desktop grid */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-4"
+            className="hidden md:grid md:grid-cols-3 gap-4"
             variants={cardStagger}
             initial="hidden"
             whileInView="show"
@@ -291,8 +357,12 @@ export default function PricingSection() {
         {/* ── Automations ── */}
         <div>
           <SectionHeader label="Automations" title="AI Systems" />
+
+          <MobileCarousel items={automationPackages} href="/automations" />
+
+          {/* Desktop grid */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-[1fr_1.12fr_1fr] gap-4 items-center"
+            className="hidden md:grid md:grid-cols-[1fr_1.12fr_1fr] gap-4 items-center"
             variants={cardStagger}
             initial="hidden"
             whileInView="show"

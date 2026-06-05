@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import gsap from "gsap";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -178,6 +179,59 @@ function ProcessCard({ step, isActive, onClick }: { step: Step; index: number; i
   );
 }
 
+function MobileCarousel({ active, setActive }: { active: number | null; setActive: (i: number | null) => void }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const clone = track.cloneNode(true) as HTMLDivElement;
+    // Clone doesn't need click handlers to work — clicks on original track handle interaction
+    track.parentElement?.appendChild(clone);
+
+    const tween = gsap.to([track, clone], {
+      xPercent: -100,
+      repeat: -1,
+      duration: 30,
+      ease: "none",
+      modifiers: { xPercent: gsap.utils.unitize((v: number) => v % -100) },
+    });
+
+    // Pause on touch
+    const pause = () => tween.pause();
+    const resume = () => tween.resume();
+    track.parentElement?.addEventListener("touchstart", pause, { passive: true });
+    track.parentElement?.addEventListener("touchend", resume, { passive: true });
+
+    return () => {
+      tween.kill();
+      clone.remove();
+      track.parentElement?.removeEventListener("touchstart", pause);
+      track.parentElement?.removeEventListener("touchend", resume);
+    };
+  }, []);
+
+  return (
+    <div className="md:hidden overflow-hidden pb-4">
+      <div className="flex">
+        <div ref={trackRef} className="flex gap-4 flex-shrink-0 pl-6">
+          {steps.map((step, i) => (
+            <ProcessCard
+              key={step.n}
+              step={step}
+              index={i}
+              isActive={active === i}
+              onClick={() => setActive(active === i ? null : i)}
+            />
+          ))}
+          <div className="w-2 flex-shrink-0" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ProcessSection() {
   const [active, setActive] = useState<number | null>(null);
 
@@ -212,11 +266,13 @@ export default function ProcessSection() {
         </motion.p>
       </motion.div>
 
-      {/* Cards */}
-      <div className="px-6 max-w-7xl mx-auto">
+      {/* Mobile infinite carousel */}
+      <MobileCarousel active={active} setActive={setActive} />
+
+      {/* Desktop grid */}
+      <div className="hidden md:block px-6 max-w-7xl mx-auto">
         <motion.div
-          className="flex gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-5 md:overflow-visible md:pb-0"
-          style={{ scrollbarWidth: "none" }}
+          className="grid md:grid-cols-5 gap-4"
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } } }}
           initial="hidden"
           whileInView="show"
@@ -263,89 +319,115 @@ export default function ProcessSection() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-40 flex items-center justify-center p-4 md:p-8"
+              className="fixed inset-0 z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(12px)" }}
               onClick={() => setActive(null)}
+            />
+
+            {/* ── Mobile: bottom sheet ── */}
+            <motion.div
+              className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex flex-col overflow-hidden"
+              style={{ maxHeight: "88vh", background: "#0f0f0f", borderTop: "1px solid rgba(201,168,76,0.3)" }}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal */}
+              {/* Drag handle */}
+              <div className="flex justify-center pt-3 pb-2 flex-shrink-0">
+                <div className="w-10 h-1 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }} />
+              </div>
+
+              {/* Image banner */}
+              <div className="relative flex-shrink-0" style={{ height: 160 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={steps[active].img} alt={steps[active].title} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #0f0f0f 0%, transparent 60%)" }} />
+                <div className="absolute bottom-4 left-5 flex items-center gap-3">
+                  <span className="text-[9px] font-black tracking-[0.25em] uppercase px-2.5 py-1" style={{ background: "rgba(201,168,76,0.15)", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.3)" }}>
+                    {steps[active].category}
+                  </span>
+                  <span className="text-[10px] font-black tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.35)" }}>{steps[active].n} / 05</span>
+                </div>
+              </div>
+
+              {/* Scrollable content */}
+              <div className="flex flex-col overflow-y-auto px-5 pb-8 pt-4 gap-4">
+                <div className="flex items-start justify-between">
+                  <h3 className="font-black text-white leading-none pr-4" style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(22px, 6vw, 30px)", letterSpacing: "-0.04em" }}>
+                    {steps[active].title}
+                  </h3>
+                  <button onClick={() => setActive(null)} className="flex-shrink-0 w-9 h-9 flex items-center justify-center" style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.4)" }}>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                  </button>
+                </div>
+                <p className="text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{steps[active].longDesc}</p>
+                <p className="text-[9px] font-black tracking-[0.3em] uppercase" style={{ color: "rgba(201,168,76,0.5)" }}>What this includes</p>
+                <div className="grid grid-cols-1 gap-3">
+                  {steps[active].details.map((d) => (
+                    <div key={d.title} className="p-3.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#c9a84c" }} />
+                        <p className="text-white font-bold text-[12px]">{d.title}</p>
+                      </div>
+                      <p className="text-[11px] leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>{d.body}</p>
+                    </div>
+                  ))}
+                </div>
+                <a href="/contact" className="flex items-center justify-between px-5 py-4 text-[13px] font-black mt-2" style={{ background: "#c9a84c", color: "#0a0a0a" }}>
+                  Get a Free Demo
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </a>
+              </div>
+            </motion.div>
+
+            {/* ── Desktop: centred modal ── */}
+            <div className="hidden md:flex fixed inset-0 z-50 items-center justify-center p-8" onClick={() => setActive(null)}>
               <motion.div
                 className="relative w-full overflow-hidden"
-                style={{
-                  maxWidth: "900px",
-                  maxHeight: "calc(100vh - 120px)",
-                  background: "#0f0f0f",
-                  border: "1px solid rgba(201,168,76,0.25)",
-                }}
+                style={{ maxWidth: "900px", maxHeight: "calc(100vh - 120px)", background: "#0f0f0f", border: "1px solid rgba(201,168,76,0.25)" }}
                 initial={{ opacity: 0, scale: 0.94, y: 24 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.94, y: 24 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Gold top bar */}
                 <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, #c9a84c 40%, #c9a84c 60%, transparent)" }} />
-
                 <div className="flex flex-col md:flex-row" style={{ maxHeight: "calc(100vh - 122px)" }}>
-
-                  {/* Left — image */}
                   <div className="relative md:w-[42%] flex-shrink-0" style={{ minHeight: "220px" }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={steps[active].img}
-                      alt={steps[active].title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
+                    <img src={steps[active].img} alt={steps[active].title} className="absolute inset-0 w-full h-full object-cover" />
                     <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%)" }} />
                     <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 60%, #0f0f0f 100%)" }} />
-
-                    {/* Step badge */}
                     <div className="absolute top-6 left-6">
-                      <span className="text-[11px] font-black tracking-[0.3em]" style={{ color: "rgba(255,255,255,0.4)" }}>
-                        {steps[active].n} / 05
-                      </span>
+                      <span className="text-[11px] font-black tracking-[0.3em]" style={{ color: "rgba(255,255,255,0.4)" }}>{steps[active].n} / 05</span>
                     </div>
-
-                    {/* Category pill */}
                     <div className="absolute bottom-6 left-6">
-                      <span
-                        className="text-[9px] font-black tracking-[0.25em] uppercase px-3 py-1.5"
-                        style={{ background: "rgba(201,168,76,0.15)", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.3)" }}
-                      >
+                      <span className="text-[9px] font-black tracking-[0.25em] uppercase px-3 py-1.5" style={{ background: "rgba(201,168,76,0.15)", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.3)" }}>
                         {steps[active].category}
                       </span>
                     </div>
                   </div>
-
-                  {/* Right — content */}
                   <motion.div
                     className="flex flex-col flex-1 p-7 md:p-10 overflow-y-auto"
                     initial="hidden"
                     animate="show"
                     variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } } }}
                   >
-                    {/* Close + title row */}
                     <motion.div
                       className="flex items-start justify-between mb-6"
                       variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease } } }}
                     >
-                      <h3
-                        className="font-black text-white leading-none pr-4"
-                        style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", letterSpacing: "-0.04em" }}
-                      >
+                      <h3 className="font-black text-white leading-none pr-4" style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", letterSpacing: "-0.04em" }}>
                         {steps[active].title}
                       </h3>
-                      <button
-                        onClick={() => setActive(null)}
-                        className="flex-shrink-0 w-9 h-9 flex items-center justify-center transition-all duration-200 hover:border-white/40"
-                        style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.4)" }}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                        </svg>
+                      <button onClick={() => setActive(null)} className="flex-shrink-0 w-9 h-9 flex items-center justify-center transition-all duration-200 hover:border-white/40" style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.4)" }}>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
                       </button>
                     </motion.div>
 
@@ -396,7 +478,7 @@ export default function ProcessSection() {
                   </motion.div>
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>
