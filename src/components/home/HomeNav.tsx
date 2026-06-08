@@ -264,7 +264,7 @@ export default function HomeNav() {
                   onMouseLeave={() => setHoveredLink(null)}
                   style={{
                     fontFamily: "var(--font-geist-sans), sans-serif",
-                    fontSize: "clamp(32px, 5.5vw, 72px)",
+                    fontSize: "clamp(28px, 4vw, 54px)",
                     letterSpacing: "-0.04em",
                     color: !active && hoveredLink === l.label ? "#c9a84c" : active ? "rgba(255,255,255,0.4)" : "white",
                   }}
