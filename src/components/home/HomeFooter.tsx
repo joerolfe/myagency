@@ -255,7 +255,7 @@ export default function HomeFooter() {
       {/* Card with notch clipped directly into the shape */}
       <div className="relative px-4 md:px-6 pt-4" style={{ zIndex: 1 }}>
         <CardWithNotch>
-        <div className="relative flex flex-col px-6 md:px-12 pt-36 md:pt-20 pb-10 overflow-hidden" style={{ minHeight: "clamp(700px, 100vh, 900px)" }}>
+        <div className="relative flex flex-col px-6 md:px-12 pt-64 md:pt-56 pb-6 overflow-hidden">
         {/* Topographic gold pattern */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -268,7 +268,7 @@ export default function HomeFooter() {
         />
 
         {/* ── MOBILE layout: nav top → headline → CTA ── */}
-        <div className="flex flex-col h-full md:hidden gap-8">
+        <div className="flex flex-col md:hidden gap-8 mt-auto mb-[8px]">
 
           {/* Pages + Socials side by side */}
           <div className="grid grid-cols-2 gap-4 pt-2">
@@ -328,44 +328,44 @@ export default function HomeFooter() {
         </div>
 
         {/* ── DESKTOP layout: original 3-col ── */}
-        <div className="hidden md:flex flex-col justify-between flex-1">
-          <div className="grid md:grid-cols-3 gap-6 flex-1">
-            <div className="flex flex-col gap-2 self-end pl-20 translate-y-[10px]">
-              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>Pages</p>
+        <div className="hidden md:flex flex-col justify-between gap-6">
+          <div className="grid md:grid-cols-3 gap-6 items-end mt-auto translate-y-[50px]">
+            <div className="flex flex-col gap-1.5 pl-12">
+              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Pages</p>
               {pages.map((p) => (
                 <FlipLink key={p.label} label={p.label} href={p.href} className="font-black leading-tight"
-                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.03em", color: "white" }} />
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 2.5vw, 36px)", letterSpacing: "-0.03em", color: "white" }} />
               ))}
             </div>
-            <div className="flex flex-col items-center justify-center text-center gap-8">
+            <div className="flex flex-col items-center justify-center text-center gap-5 pb-8">
               <h2 ref={headingRef} className="font-black text-white leading-none"
-                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(36px, 5.5vw, 72px)", letterSpacing: "-0.04em" }}>
+                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(32px, 4.5vw, 60px)", letterSpacing: "-0.04em" }}>
                 Ready to grow<br /><span style={{ color: "#c9a84c" }}>your business?</span>
               </h2>
               <a ref={btnRef} href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-4 font-bold text-[12px] tracking-widest uppercase transition-all duration-200 hover:opacity-90"
+                className="inline-flex items-center gap-3 px-6 py-3 font-bold text-[11px] tracking-widest uppercase transition-all duration-200 hover:opacity-90"
                 style={{ background: "#c9a84c", color: "#0a0a0a" }}>
                 Book a Free Call
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
               </a>
-              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.2)" }}>Free demo · No upfront cost · You own the site</p>
+              <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.2)" }}>Free demo · No upfront cost · You own the site</p>
             </div>
-            <div className="flex flex-col items-end gap-2 self-end pr-20 translate-y-[10px]">
-              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>Follow On</p>
+            <div className="flex flex-col items-end gap-1.5 pr-12">
+              <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Follow On</p>
               {socials.map((s) => (
                 <FlipLink key={s.label} label={s.label} href={s.href} external={s.href.startsWith("http")} className="font-black leading-tight"
-                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.03em", color: "white" }} />
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(22px, 2.5vw, 36px)", letterSpacing: "-0.03em", color: "white" }} />
               ))}
-              <div className="mt-8">
-                <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Call Us</p>
+              <div className="mt-4">
+                <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>Call Us</p>
                 <FlipLink label={phone.display} href={phone.href} className="font-black"
-                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(16px, 2vw, 24px)", letterSpacing: "-0.02em", color: "white" }} />
+                  style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(16px, 1.8vw, 22px)", letterSpacing: "-0.02em", color: "white" }} />
               </div>
             </div>
           </div>
-          <div className="flex justify-center py-16">
+          <div className="flex justify-center py-4">
             <Link href="/" className="font-black text-white/5 hover:text-white/10 transition-colors duration-300 leading-none"
-              style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(80px, 16vw, 200px)", letterSpacing: "-0.05em" }}>
+              style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(70px, 12vw, 160px)", letterSpacing: "-0.05em" }}>
               Rolfe<span style={{ color: "rgba(201,168,76,0.08)" }}>.</span>
             </Link>
           </div>
