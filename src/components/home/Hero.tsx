@@ -131,7 +131,7 @@ export default function Hero() {
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto w-full">
         <p
           ref={eyebrowRef}
-          className="text-[11px] font-bold tracking-[0.35em] uppercase mb-8"
+          className="text-[11px] font-bold tracking-[0.35em] uppercase mb-4"
           style={{ color: "#c9a84c" }}
         >
           Web Design &amp; AI Automations
@@ -139,10 +139,10 @@ export default function Hero() {
 
         <h1
           ref={headingRef}
-          className="font-black text-white leading-none mb-8"
+          className="font-black text-white leading-none mb-4"
           style={{
             fontFamily: "var(--font-geist-sans), sans-serif",
-            fontSize: "clamp(48px, 8vw, 110px)",
+            fontSize: "clamp(32px, 5vw, 72px)",
             letterSpacing: "-0.03em",
           }}
         >
@@ -155,7 +155,7 @@ export default function Hero() {
 
         <p
           ref={subRef}
-          className="text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
+          className="text-sm md:text-base max-w-xl mx-auto mb-6 leading-relaxed"
           style={{ color: "#a0a0a0" }}
         >
           Premium websites and AI automations for local businesses
@@ -183,7 +183,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div
         ref={scrollIndicatorRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="text-[10px] tracking-[0.3em] uppercase text-white/30">Scroll</span>
         <div className="w-px h-10 overflow-hidden">
