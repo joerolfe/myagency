@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import RotatePrompt from "@/components/RotatePrompt";
 import LenisProvider from "@/components/LenisProvider";
 import { siteUrl, siteName } from "@/lib/config";
 
@@ -93,6 +94,7 @@ export default function RootLayout({
         <LenisProvider>
           {children}
           <WhatsAppButton />
+          <RotatePrompt />
         </LenisProvider>
       </body>
     </html>
