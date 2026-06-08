@@ -19,11 +19,11 @@ export default function AppleIcon() {
       >
         <div
           style={{
-            fontFamily: "Georgia, serif",
-            fontSize: 100,
-            fontWeight: 700,
+            fontFamily: "Arial, sans-serif",
+            fontSize: 110,
+            fontWeight: 900,
             display: "flex",
-            letterSpacing: -2,
+            letterSpacing: -4,
           }}
         >
           <span style={{ color: "#ffffff" }}>R</span>
