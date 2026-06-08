@@ -77,11 +77,11 @@ export default function AboutPage() {
               <motion.h1
                 variants={blurUp}
                 className="font-black text-white leading-none mb-6"
-                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(42px, 7vw, 96px)", letterSpacing: "-0.04em" }}
+                style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(28px, 4.5vw, 64px)", letterSpacing: "-0.04em" }}
               >
                 I&apos;m Joe.<br />
-                <span style={{ color: "#c9a84c" }}>I build websites</span><br />
-                that work.
+                <span style={{ color: "#c9a84c" }}>No agency,</span><br />
+                just quality conversion.
               </motion.h1>
               <motion.p variants={blurUp} className="text-base md:text-lg leading-relaxed max-w-md" style={{ color: "rgba(255,255,255,0.45)" }}>
                 Based in South Derbyshire. Helping local tradespeople and small businesses get online, get found, and get more customers — without the agency price tag.
