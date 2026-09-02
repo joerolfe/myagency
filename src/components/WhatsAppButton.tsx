@@ -71,7 +71,7 @@ export default function WhatsAppButton() {
         className="text-[12px] font-black tracking-[0.08em] uppercase whitespace-nowrap"
         style={{ color: "#c9a84c" }}
       >
-        Chat with Joseph
+        WhatsApp
       </span>
     </a>
   );
