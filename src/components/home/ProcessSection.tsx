@@ -22,7 +22,7 @@ const steps = [
     title: "Discovery",
     description: "I research your business and identify exactly what's holding you back — before we've even spoken.",
     tag: "Free",
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80",
+    img: "https://images.unsplash.com/photo-1523726491678-bf852e717f6a?auto=format&fit=crop&w=600&q=80",
     category: "Research & Planning",
     longDesc: "Before I write a single line of code, I spend time getting to know your business, your competitors, and your customers. This means I'm building something that actually works for your market — not a generic template with your logo on it.",
     details: [
@@ -37,7 +37,7 @@ const steps = [
     title: "Free Demo",
     description: "I build a working demo of your new website at no cost — you see it before anything is agreed or paid.",
     tag: "No obligation",
-    img: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=600&q=80",
+    img: "https://images.unsplash.com/photo-1618788372246-79faff0c3742?auto=format&fit=crop&w=600&q=80",
     category: "Design & Build",
     longDesc: "You get to see a fully working website before you spend a single penny. Not a mockup or a wireframe — an actual, live site you can click around. If you don't love it, you walk away with no invoice and no awkward conversation.",
     details: [
@@ -52,7 +52,7 @@ const steps = [
     title: "Review Together",
     description: "We meet in person or on a call. I walk you through the demo and make any changes you want.",
     tag: "In person or video",
-    img: "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?auto=format&fit=crop&w=600&q=80",
+    img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80",
     category: "Collaboration",
     longDesc: "Once the demo is ready, we sit down together — in person if you're local, or on a video call. I walk you through every page, explain the decisions I made, and we work through any changes you want. No rush, no limits on revisions.",
     details: [
@@ -67,7 +67,7 @@ const steps = [
     title: "Build & Launch",
     description: "You approve it and I build the full site, set up hosting, domain and go live — fully handled.",
     tag: "Fully managed",
-    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80",
+    img: "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&w=600&q=80",
     category: "Development & Launch",
     longDesc: "Once you're happy with the demo, I build out the full site, set up your hosting and domain, connect your email, and take it live. Everything is handled — you don't need to deal with any of the technical side.",
     details: [
@@ -82,7 +82,7 @@ const steps = [
     title: "Ongoing Support",
     description: "Updates, security and changes on a monthly retainer. You focus on the business, I handle the tech.",
     tag: "From £35/month",
-    img: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80",
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
     category: "Maintenance & Growth",
     longDesc: "Your website isn't a one-off job — it needs to stay fast, secure, and up to date. On a monthly retainer I handle all of that, plus any changes you need. Think of it as having a developer on call, without the salary.",
     details: [
