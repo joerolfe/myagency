@@ -96,7 +96,7 @@ export default function GarageDemo() {
       <GarageNav />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative h-screen overflow-hidden flex flex-col items-center justify-center">
+      <section id="about" className="relative h-screen overflow-hidden flex flex-col items-center justify-center">
 
         {/* Background image */}
         <div className="absolute inset-0">

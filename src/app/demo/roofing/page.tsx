@@ -87,7 +87,7 @@ export default function RoofingDemo() {
       <RoofingNav />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex flex-col lg:flex-row overflow-hidden">
+      <section id="about" className="relative min-h-screen flex flex-col lg:flex-row overflow-hidden">
 
         {/* Left — text */}
         <div
@@ -561,7 +561,7 @@ export default function RoofingDemo() {
       </section>
 
       {/* ── AREAS ────────────────────────────────────────────────────── */}
-      <section style={{ background: GREEN, borderTop: "1px solid rgba(201,168,112,0.08)" }}>
+      <section id="contact" style={{ background: GREEN, borderTop: "1px solid rgba(201,168,112,0.08)" }}>
         <div className="max-w-7xl mx-auto px-8 md:px-16 py-14">
           <div className="flex flex-col md:flex-row md:items-center gap-10">
             <div className="md:w-72 flex-shrink-0">

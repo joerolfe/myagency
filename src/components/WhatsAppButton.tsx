@@ -9,8 +9,7 @@ const MESSAGE = "Hi Joseph, I'd like to find out more about getting a website fo
 export default function WhatsAppButton() {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
-
-  if (pathname.startsWith("/demo") || pathname === "/contact" || pathname === "/privacy") return null;
+  const hidden = pathname.startsWith("/demo") || pathname === "/contact" || pathname === "/privacy";
 
   useEffect(() => {
     const footer = document.querySelector("footer");
@@ -38,6 +37,8 @@ export default function WhatsAppButton() {
   }, []);
 
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(MESSAGE)}`;
+
+  if (hidden) return null;
 
   return (
     <a

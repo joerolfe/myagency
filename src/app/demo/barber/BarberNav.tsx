@@ -43,14 +43,20 @@ export default function BarberNav() {
 
         {/* Nav links */}
         <nav className="hidden md:flex items-center gap-8">
-          {["Services", "Gallery", "About", "Reviews", "Find Us"].map(l => (
+          {[
+            { label: "Services", id: "services" },
+            { label: "Gallery", id: "gallery" },
+            { label: "About", id: "about" },
+            { label: "Reviews", id: "reviews" },
+            { label: "Find Us", id: "find-us" },
+          ].map(l => (
             <a
-              key={l}
-              href="#"
+              key={l.label}
+              href={`#${l.id}`}
               className="text-sm font-medium transition-colors duration-300 hover:opacity-70"
               style={{ color: "rgba(245,240,232,0.75)" }}
             >
-              {l}
+              {l.label}
             </a>
           ))}
         </nav>

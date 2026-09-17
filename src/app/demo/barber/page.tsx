@@ -30,7 +30,7 @@ export default function BarberDemo() {
       <BarberNav />
 
       {/* ── HERO — split screen ───────────────────────────────────── */}
-      <section className="relative min-h-screen flex flex-col lg:flex-row">
+      <section id="about" className="relative min-h-screen flex flex-col lg:flex-row">
 
         {/* Left — text panel */}
         <div
@@ -324,7 +324,7 @@ export default function BarberDemo() {
       {/* ── FOOTER ───────────────────────────────────────────────── */}
       <footer className="py-14 px-12" style={{ background: "#060606", borderTop: "1px solid rgba(201,168,76,0.1)" }}>
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 pb-10" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div id="find-us" className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 pb-10" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
             <div>
               <p className="text-lg font-black text-white tracking-tight">BLADE &amp; CROWN</p>
               <p className="text-xs font-semibold tracking-[0.2em] mt-0.5" style={{ color: GOLD }}>BARBERSHOP · DERBY</p>

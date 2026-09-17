@@ -4,9 +4,9 @@ import { phone } from "@/lib/config";
 const links = [
   { label: "Services", href: "/services" },
   { label: "Automations", href: "/automations" },
-  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Portfolio", href: "/#work" },
   { label: "Process", href: "/#process" },
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 

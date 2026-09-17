@@ -61,14 +61,20 @@ export default function PlumbingNav() {
 
         {/* Nav links */}
         <nav className="hidden md:flex items-center gap-8">
-          {["Services", "About Us", "Our Work", "Reviews", "Coverage"].map(l => (
+          {[
+            { label: "Services", id: "services" },
+            { label: "About Us", id: "about" },
+            { label: "Our Work", id: "work" },
+            { label: "Reviews", id: "reviews" },
+            { label: "Coverage", id: "coverage" },
+          ].map(l => (
             <a
-              key={l}
-              href="#"
+              key={l.label}
+              href={`#${l.id}`}
               className="text-sm font-medium transition-colors duration-300 hover:opacity-70"
               style={{ color: scrolled ? "#374151" : "rgba(255,255,255,0.85)" }}
             >
-              {l}
+              {l.label}
             </a>
           ))}
         </nav>

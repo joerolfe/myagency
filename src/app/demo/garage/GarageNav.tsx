@@ -54,14 +54,14 @@ export default function GarageNav() {
 
         {/* Right links */}
         <div className="hidden md:flex items-center gap-8">
-          {["Gallery", "Contact"].map(l => (
+          {[{ label: "Gallery", id: "our-work" }, { label: "Contact", id: "contact" }].map(l => (
             <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
+              key={l.label}
+              href={`#${l.id}`}
               className="text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors duration-200 hover:text-white"
               style={{ color: "rgba(255,255,255,0.45)" }}
             >
-              {l}
+              {l.label}
             </a>
           ))}
           <a

@@ -175,8 +175,11 @@ export default function HomeNav() {
   }, [menuOpen]);
 
   const handleAnchor = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    const hash = href.includes("#") ? "#" + href.split("#")[1] : null;
-    if (!hash) return;
+    if (!href.includes("#")) return;
+    const [path, fragment] = href.split("#");
+    const hash = "#" + fragment;
+    const targetPath = path || "/";
+    if (pathname !== targetPath) return;
     e.preventDefault();
     setMenuOpen(false);
     setTimeout(() => {

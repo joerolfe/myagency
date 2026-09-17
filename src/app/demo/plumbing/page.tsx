@@ -106,10 +106,10 @@ const areas = [
 const galleryImages = [
   { id: "1552321554-5fefe8c9ef14", alt: "Modern bathroom renovation with freestanding bath" },
   { id: "1584622650111-993a426fbf0a", alt: "Contemporary en-suite shower room" },
-  { id: "1507089947405-5f429f91c2ab", alt: "Luxury bathroom with marble tiling" },
+  { id: "1620626011761-996317b8d101", alt: "Luxury bathroom with marble tiling" },
   { id: "1556909114-f6e7ad7d3136", alt: "Modern kitchen with new plumbing" },
   { id: "1564540574859-0dfb63985953", alt: "Walk-in shower installation" },
-  { id: "1576641984804-d1bcf3a8e71e", alt: "Family bathroom suite installation" },
+  { id: "1600566752355-35792bedcfea", alt: "Family bathroom suite installation" },
 ];
 
 // ─── Components ───────────────────────────────────────────────────────────────
@@ -269,7 +269,7 @@ export default function PlumbingDemo() {
       </section>
 
       {/* Why choose us */}
-      <section className="py-14 md:py-24 px-4 md:px-6 bg-[#0c2340]">
+      <section id="about" className="py-14 md:py-24 px-4 md:px-6 bg-[#0c2340]">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
@@ -417,7 +417,7 @@ export default function PlumbingDemo() {
       </section>
 
       {/* Coverage */}
-      <section className="py-16 px-6 bg-white border-t border-gray-100">
+      <section id="coverage" className="py-16 px-6 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center gap-8">
           <div className="flex-shrink-0">
             <p className="text-sm font-bold tracking-widest uppercase text-[#0c2340] mb-2">Coverage Area</p>
