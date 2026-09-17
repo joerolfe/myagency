@@ -18,9 +18,9 @@ export default function Home() {
       <Hero />
       <MarqueeTicker />
       <StatementSection />
+      <WorkSection />
       <PricingSection />
       <StatsSection />
-      <WorkSection />
       <ProcessSection />
       <TestimonialsSection />
       <HomeFooter />

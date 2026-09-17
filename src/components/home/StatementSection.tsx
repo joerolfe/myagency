@@ -12,13 +12,15 @@ export default function StatementSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const lineRef = useRef<SVGLineElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
+  const ctasRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const heading = headingRef.current;
     const line = lineRef.current;
     const sub = subRef.current;
-    if (!section || !heading || !line || !sub) return;
+    const ctas = ctasRef.current;
+    if (!section || !heading || !line || !sub || !ctas) return;
 
     const ctx = gsap.context(() => {
       const split = new SplitText(heading, { type: "lines", linesClass: "split-line-wrap" });
@@ -61,6 +63,18 @@ export default function StatementSection() {
         },
       });
 
+      gsap.from(ctas, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 60%",
+        },
+      });
+
       return () => split.revert();
     }, section);
 
@@ -70,23 +84,22 @@ export default function StatementSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-28 md:py-40 px-6 text-center"
+      className="pt-28 md:pt-40 pb-10 md:pb-14 px-6 text-center"
       style={{ background: "#0a0a0a" }}
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h2
           ref={headingRef}
-          className="font-black text-white leading-tight mb-4"
+          className="font-black text-white leading-tight mb-4 whitespace-normal md:whitespace-nowrap"
           style={{
             fontFamily: "var(--font-geist-sans), sans-serif",
-            fontSize: "clamp(32px, 5vw, 72px)",
+            fontSize: "clamp(18px, 2.1vw, 29px)",
             letterSpacing: "-0.03em",
           }}
         >
-          We don&apos;t build average websites.
-          <br />
+          We don&apos;t build average websites. We build{" "}
           <span className="relative inline-block">
-            We build digital assets
+            digital assets
             <svg
               className="absolute left-0 -bottom-2 w-full"
               height="6"
@@ -111,12 +124,48 @@ export default function StatementSection() {
 
         <p
           ref={subRef}
-          className="mt-10 text-base md:text-lg max-w-xl mx-auto leading-relaxed"
-          style={{ color: "#a0a0a0" }}
+          className="mt-4 leading-relaxed whitespace-normal md:whitespace-nowrap"
+          style={{ color: "#a0a0a0", fontSize: "clamp(13px, 1.05vw, 16px)" }}
         >
           Every site we build is engineered to attract leads, build trust, and
           turn visitors into paying customers — for local businesses ready to grow.
         </p>
+
+        <div ref={ctasRef} className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#work"
+            onClick={(e) => { e.preventDefault(); document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" }); }}
+            className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full font-bold text-sm transition-transform duration-200 hover:scale-[1.03]"
+            style={{ background: "#c9a84c", color: "#0a0a0a" }}
+          >
+            See All Projects
+            <span
+              className="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0 transition-transform duration-200 group-hover:rotate-45"
+              style={{ background: "#0a0a0a" }}
+            >
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                <path d="M4 12L12 4M12 4H6M12 4V10" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </a>
+
+          <a
+            href="#pricing"
+            onClick={(e) => { e.preventDefault(); document.querySelector("#pricing")?.scrollIntoView({ behavior: "smooth" }); }}
+            className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full font-bold text-sm border transition-transform duration-200 hover:scale-[1.03]"
+            style={{ borderColor: "rgba(255,255,255,0.25)", color: "white" }}
+          >
+            Our Services
+            <span
+              className="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0 border transition-transform duration-200 group-hover:rotate-45"
+              style={{ borderColor: "rgba(255,255,255,0.25)" }}
+            >
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                <path d="M4 12L12 4M12 4H6M12 4V10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </a>
+        </div>
       </div>
     </section>
   );

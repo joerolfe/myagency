@@ -5,15 +5,6 @@ import { motion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
-};
-const blurUp = {
-  hidden: { opacity: 0, y: 32, filter: "blur(8px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease } },
-};
-
 function BrowserShell({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -82,33 +73,9 @@ export default function WorkSection() {
   return (
     <section
       id="work"
-      className="py-14 md:py-20 overflow-hidden"
-      style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      className="pb-14 md:pb-20 overflow-hidden"
+      style={{ background: "#0a0a0a" }}
     >
-      {/* Header */}
-      <motion.div
-        className="text-center mb-10 px-6"
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
-      >
-        <motion.p variants={blurUp} className="text-[10px] font-black tracking-[0.4em] uppercase mb-4" style={{ color: "#c9a84c" }}>
-          Demo Sites
-        </motion.p>
-        <motion.h2
-          variants={blurUp}
-          className="font-black text-white leading-none"
-          style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontSize: "clamp(28px, 4.5vw, 56px)", letterSpacing: "-0.04em" }}
-        >
-          Looking for 3 founding clients
-        </motion.h2>
-        <motion.p variants={blurUp} className="mt-4 text-sm md:text-base max-w-xl mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
-          These are example sites built to show you the quality of work. I&apos;m taking on
-          3 new clients at a reduced rate — in exchange for an honest review once your site is live.
-        </motion.p>
-      </motion.div>
-
       {/* Carousel stage */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
