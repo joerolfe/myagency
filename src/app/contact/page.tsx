@@ -26,14 +26,16 @@ const trustPoints = [
   "Plain English, no jargon, no hard sell",
 ];
 
-function ToggleGroup({ label, name, options, value, onChange, required }: {
+function ToggleGroup({ label, name, options, value, onChange, required, showError }: {
   label: string; name: string; options: string[]; value: string | null;
-  onChange: (v: string) => void; required?: boolean;
+  onChange: (v: string) => void; required?: boolean; showError?: boolean;
 }) {
+  const invalid = required && showError && !value;
   return (
-    <div>
-      <label className="block text-[11px] font-black tracking-[0.15em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>
+    <div id={`field-${name}`}>
+      <label className="block text-[11px] font-black tracking-[0.15em] uppercase mb-3" style={{ color: invalid ? "#ef4444" : "rgba(255,255,255,0.4)" }}>
         {label}{required && <span className="ml-1" style={{ color: "#c9a84c" }}>*</span>}
+        {invalid && <span className="ml-2 normal-case tracking-normal font-bold">Please choose one</span>}
       </label>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => (
@@ -87,9 +89,21 @@ export default function ContactPage() {
   const [budget, setBudget] = useState<string | null>(null);
   const [source, setSource] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<string | null>(null);
+  const [showErrors, setShowErrors] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const firstMissing = [
+      ["service", service],
+      ["hasWebsite", hasWebsite],
+      ["budget", budget],
+      ["timeline", timeline],
+    ].find(([, value]) => !value);
+    if (firstMissing) {
+      setShowErrors(true);
+      document.getElementById(`field-${firstMissing[0]}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     setStatus("loading");
     const data = new FormData(e.currentTarget);
     try {
@@ -218,8 +232,8 @@ export default function ContactPage() {
                     <InputField label="Phone (optional)" name="phone" type="tel" placeholder="07700 000 000" />
                   </div>
 
-                  <ToggleGroup label="What are you interested in?" name="service" required options={["Website", "Automations", "Both"]} value={service} onChange={setService} />
-                  <ToggleGroup label="Do you have a website?" name="hasWebsite" required options={["Yes", "No"]} value={hasWebsite} onChange={setHasWebsite} />
+                  <ToggleGroup label="What are you interested in?" name="service" required showError={showErrors} options={["Website", "Automations", "Both"]} value={service} onChange={setService} />
+                  <ToggleGroup label="Do you have a website?" name="hasWebsite" required showError={showErrors} options={["Yes", "No"]} value={hasWebsite} onChange={setHasWebsite} />
 
                   <AnimatePresence>
                     {hasWebsite === "Yes" && (
@@ -229,8 +243,8 @@ export default function ContactPage() {
                     )}
                   </AnimatePresence>
 
-                  <ToggleGroup label="Budget" name="budget" required options={["Under £300", "£300–£600", "£600–£1000", "£1000+"]} value={budget} onChange={setBudget} />
-                  <ToggleGroup label="When do you want to get started?" name="timeline" required options={["ASAP", "Next month", "Just exploring"]} value={timeline} onChange={setTimeline} />
+                  <ToggleGroup label="Budget" name="budget" required showError={showErrors} options={["Under £300", "£300–£600", "£600–£1000", "£1000+"]} value={budget} onChange={setBudget} />
+                  <ToggleGroup label="When do you want to get started?" name="timeline" required showError={showErrors} options={["ASAP", "Next month", "Just exploring"]} value={timeline} onChange={setTimeline} />
                   <ToggleGroup label="How did you hear about me?" name="source" options={["Google", "Instagram", "Word of mouth", "Other"]} value={source} onChange={setSource} />
 
                   <div>
