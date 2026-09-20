@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const eyebrowRef = useRef<HTMLParagraphElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
@@ -18,7 +17,6 @@ export default function Hero() {
 
   useEffect(() => {
     const section = sectionRef.current;
-    const video = videoRef.current;
     const eyebrow = eyebrowRef.current;
     const heading = headingRef.current;
     const sub = subRef.current;
@@ -27,20 +25,6 @@ export default function Hero() {
     if (!section || !eyebrow || !heading || !sub || !ctas || !scrollIndicator) return;
 
     const ctx = gsap.context(() => {
-      // Subtle parallax on the video
-      if (video) {
-        gsap.to(video, {
-          yPercent: 12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-
       // Eyebrow: split by chars
       const eyebrowSplit = new SplitText(eyebrow, { type: "chars" });
       gsap.from(eyebrowSplit.chars, {
@@ -110,28 +94,6 @@ export default function Hero() {
       className="relative flex items-center justify-center overflow-hidden"
       style={{ height: "100dvh", background: "#0a0a0a" }}
     >
-      {/* Video background */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="/videos/hero-poster.jpg"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.45 }}
-        onError={(e) => { (e.target as HTMLVideoElement).style.display = "none"; }}
-      >
-        <source src="/videos/hero.mp4" type="video/mp4" />
-      </video>
-
-      {/* Overlay */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.6) 60%, rgba(10,10,10,0.95) 100%)" }}
-      />
-
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto w-full">
         <p
