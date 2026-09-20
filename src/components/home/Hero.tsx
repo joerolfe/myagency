@@ -92,7 +92,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       className="relative flex items-center justify-center overflow-hidden"
-      style={{ height: "100dvh", background: "#0a0a0a" }}
+      style={{ height: "100svh", background: "#0a0a0a" }}
     >
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto w-full">
