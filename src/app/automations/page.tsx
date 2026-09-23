@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, type Variants } from "motion/react";
 import Link from "next/link";
 import HomeNav from "@/components/home/HomeNav";
 import HomeFooter from "@/components/home/HomeFooter";
@@ -16,15 +16,33 @@ const stagger: Variants = {
   show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
 };
 
+// Pricing: table card + bundle card stagger in, then rows stagger within the table.
+const cardsStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.15 } },
+};
+const rowStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07 } },
+};
+
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const automations = [
-  { title: "Missed Call Text-Back", setup: 125, monthly: 30 },
-  { title: "Google Review Requests", setup: 125, monthly: 25 },
-  { title: "Lead Follow-Up", setup: 150, monthly: 35 },
-  { title: "Appointment Reminders", setup: 125, monthly: 25 },
-  { title: "Website Chatbot", setup: 200, monthly: 40 },
+  { title: "Missed Call Text-Back", setup: 125, monthly: 30, description: "Miss a call on a job? They get a text straight away, so they don't ring the next trade on Google." },
+  { title: "Google Review Requests", setup: 125, monthly: 25, description: "Customers get a friendly text after each job asking for a Google review, with the link ready to tap." },
+  { title: "Lead Follow-Up", setup: 150, monthly: 35, description: "Enquiries that haven't booked get automatic follow-up texts, so no lead goes cold." },
+  { title: "Appointment Reminders", setup: 125, monthly: 25, description: "Customers get a reminder text the day before, so fewer no-shows and wasted trips." },
+  { title: "Website Chatbot", setup: 200, monthly: 40, description: "Answers questions on your website 24/7 and captures the customer's details for you." },
 ];
+
+// The four automations included in the Full Automation Bundle below.
+const bundleIncludes = ["Missed Call Text-Back", "Google Review Requests", "Lead Follow-Up", "Appointment Reminders"];
+const bundleAutomations = automations.filter((a) => bundleIncludes.includes(a.title));
+const bundleSetup = 350;
+const bundleMonthly = 75;
+const bundleSetupSavings = bundleAutomations.reduce((sum, a) => sum + a.setup, 0) - bundleSetup;
+const bundleMonthlySavings = bundleAutomations.reduce((sum, a) => sum + a.monthly, 0) - bundleMonthly;
 
 const steps = [
   { n: "1", title: "You tell me what you need", body: "We have a quick call or WhatsApp chat. I find out how your business works and which automations will make the biggest difference." },
@@ -72,6 +90,16 @@ function FAQ() {
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function AutomationsPage() {
+  const reduceMotion = useReducedMotion();
+  const cardFade: Variants = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 28 },
+    show: { opacity: 1, y: 0, transition: { duration: reduceMotion ? 0.3 : 0.6, ease } },
+  };
+  const rowItem: Variants = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 14 },
+    show: { opacity: 1, y: 0, transition: { duration: reduceMotion ? 0.3 : 0.4, ease } },
+  };
+
   return (
     <main style={{ background: "#0a0a0a" }}>
       <HomeNav />
@@ -140,51 +168,63 @@ export default function AutomationsPage() {
             <motion.p variants={blurUp} className="text-sm max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.4)" }}>One-off setup fee to get everything built and tested. Then a small monthly retainer so I keep it running smoothly.</motion.p>
           </motion.div>
 
-          <motion.div className="grid md:grid-cols-2 gap-6 items-stretch" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.7, ease }}>
+          <motion.div className="grid md:grid-cols-2 gap-6 items-stretch" variants={cardsStagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
             {/* Table */}
-            <div className="flex flex-col" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <div className="px-6 py-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                <h3 className="font-black text-white text-lg" style={{ fontFamily: "var(--font-geist-sans)" }}>Individual Automations</h3>
-                <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>Pick exactly what you need</p>
+            <motion.div variants={cardFade} className="flex flex-col" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <div className="px-6 py-5 flex flex-wrap items-start justify-between gap-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <div>
+                  <h3 className="font-black text-white text-lg" style={{ fontFamily: "var(--font-geist-sans)" }}>Individual Automations</h3>
+                  <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>Pick exactly what you need</p>
+                </div>
+                <Link
+                  href="/contact"
+                  className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 text-[11px] font-black tracking-widest uppercase transition-opacity hover:opacity-90"
+                  style={{ background: "#c9a84c", color: "#0a0a0a" }}
+                >
+                  Get Automation →
+                </Link>
               </div>
-              <table className="w-full flex-1">
+              <table className="w-full flex-1" style={{ tableLayout: "fixed" }}>
                 <thead>
                   <tr style={{ background: "rgba(255,255,255,0.03)" }}>
                     <th className="text-left px-6 py-3 text-[10px] font-black tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>Automation</th>
-                    <th className="text-center px-3 py-3 text-[10px] font-black tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>Setup</th>
-                    <th className="text-center px-4 py-3 text-[10px] font-black tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>Monthly</th>
+                    <th className="text-center px-3 py-3 text-[10px] font-black tracking-widest uppercase w-[68px] sm:w-20" style={{ color: "rgba(255,255,255,0.3)" }}>Setup</th>
+                    <th className="text-center px-4 py-3 text-[10px] font-black tracking-widest uppercase w-[84px] sm:w-24" style={{ color: "rgba(255,255,255,0.3)" }}>Monthly</th>
                   </tr>
                 </thead>
-                <tbody>
+                <motion.tbody variants={rowStagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
                   {automations.map((a, i) => (
-                    <tr key={a.title} style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-                      <td className="px-6 py-4 text-sm font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>{a.title}</td>
-                      <td className="px-3 text-center text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>£{a.setup}</td>
-                      <td className="px-4 text-center text-sm font-black" style={{ color: "#c9a84c" }}>£{a.monthly}/mo</td>
-                    </tr>
+                    <motion.tr key={a.title} variants={rowItem} style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td className="px-6 py-4 align-top">
+                        <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>{a.title}</div>
+                        <p className="text-xs mt-1 leading-snug" style={{ color: "rgba(255,255,255,0.35)" }}>{a.description}</p>
+                      </td>
+                      <td className="px-3 py-4 align-top text-center text-sm whitespace-nowrap" style={{ color: "rgba(255,255,255,0.45)" }}>£{a.setup}</td>
+                      <td className="px-4 py-4 align-top text-center text-sm font-black whitespace-nowrap" style={{ color: "#c9a84c" }}>£{a.monthly}/mo</td>
+                    </motion.tr>
                   ))}
-                </tbody>
+                </motion.tbody>
               </table>
-            </div>
+            </motion.div>
 
             {/* Bundle */}
-            <div className="p-7 flex flex-col" style={{ background: "#0f0f0f", border: "1px solid rgba(201,168,76,0.4)", boxShadow: "0 8px 40px rgba(201,168,76,0.1)" }}>
+            <motion.div variants={cardFade} className="p-7 flex flex-col" style={{ background: "#0f0f0f", border: "1px solid rgba(201,168,76,0.4)", boxShadow: "0 8px 40px rgba(201,168,76,0.1)" }}>
               <div className="h-px w-full mb-5" style={{ background: "linear-gradient(90deg, transparent, #c9a84c, transparent)" }} />
               <span className="text-[9px] font-black tracking-[0.25em] uppercase px-2.5 py-1 self-start mb-4" style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", color: "#c9a84c" }}>Bundle Deal</span>
               <h3 className="font-black text-white text-xl mb-4" style={{ fontFamily: "var(--font-geist-sans)" }}>Full Automation Bundle</h3>
               <div className="flex items-baseline gap-3 mb-1">
-                <span className="font-black text-3xl" style={{ color: "#c9a84c", fontFamily: "var(--font-geist-sans)" }}>£350</span>
+                <span className="font-black text-3xl" style={{ color: "#c9a84c", fontFamily: "var(--font-geist-sans)" }}>£{bundleSetup}</span>
                 <span className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>setup</span>
-                <span className="text-xs font-bold px-2 py-0.5" style={{ background: "rgba(201,168,76,0.1)", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.2)" }}>Save £125</span>
+                <span className="text-xs font-bold px-2 py-0.5" style={{ background: "rgba(201,168,76,0.1)", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.2)" }}>Save £{bundleSetupSavings}</span>
               </div>
               <div className="flex items-baseline gap-3 mb-7">
-                <span className="font-black text-xl" style={{ color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-geist-sans)" }}>£75</span>
+                <span className="font-black text-xl" style={{ color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-geist-sans)" }}>£{bundleMonthly}</span>
                 <span className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>/ month</span>
-                <span className="text-xs font-bold px-2 py-0.5" style={{ background: "rgba(201,168,76,0.1)", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.2)" }}>Save up to £45/mo</span>
+                <span className="text-xs font-bold px-2 py-0.5" style={{ background: "rgba(201,168,76,0.1)", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.2)" }}>Save £{bundleMonthlySavings}/mo</span>
               </div>
               <p className="text-[10px] font-black tracking-widest uppercase mb-4" style={{ color: "rgba(255,255,255,0.22)" }}>Includes</p>
               <ul className="flex flex-col gap-3 mb-7 flex-1">
-                {["Missed Call Text-Back", "Google Review Requests", "Lead Follow-Up"].map((f) => (
+                {bundleIncludes.map((f) => (
                   <li key={f} className="flex items-center gap-3">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="flex-shrink-0"><path d="M2.5 6L5 8.5L9.5 4" stroke="#c9a84c" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     <span className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>{f}</span>
@@ -192,7 +232,7 @@ export default function AutomationsPage() {
                 ))}
               </ul>
               <Link href="/contact" className="block text-center py-3.5 text-sm font-black transition-opacity hover:opacity-90" style={{ background: "#c9a84c", color: "#0a0a0a" }}>Get the Bundle →</Link>
-            </div>
+            </motion.div>
           </motion.div>
           <p className="text-center text-xs mt-8" style={{ color: "rgba(255,255,255,0.25)" }}>All automations run on a rolling monthly basis. Cancel anytime with 30 days notice. No long contracts.</p>
         </div>
@@ -201,10 +241,10 @@ export default function AutomationsPage() {
       {/* FAQ */}
       <section className="py-20 px-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[10px] font-black tracking-[0.4em] uppercase mb-3" style={{ color: "#c9a84c" }}>FAQs</p>
-            <h2 className="font-black text-white mb-3" style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(24px,4vw,44px)", letterSpacing: "-0.04em" }}>Common questions</h2>
-          </div>
+          <motion.div className="text-center mb-12" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }}>
+            <motion.p variants={blurUp} className="text-[10px] font-black tracking-[0.4em] uppercase mb-3" style={{ color: "#c9a84c" }}>FAQs</motion.p>
+            <motion.h2 variants={blurUp} className="font-black text-white mb-3" style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(24px,4vw,44px)", letterSpacing: "-0.04em" }}>Common questions</motion.h2>
+          </motion.div>
           <FAQ />
         </div>
       </section>
