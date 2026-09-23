@@ -116,12 +116,49 @@ export default function HomeNav() {
   const moveRightRef = useRef<((v: number) => void) | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [navHidden, setNavHidden] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     if (leftColRef.current)  moveLeftRef.current  = gsap.quickTo(leftColRef.current,  "y", { duration: 0.9, ease: "power3.out" });
     if (rightColRef.current) moveRightRef.current = gsap.quickTo(rightColRef.current, "y", { duration: 0.9, ease: "power3.out" });
   }, []);
+
+  // Hide the nav bar on scroll down, reveal it on scroll up or near the top.
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const TOP_OFFSET = 80; // always show while this close to the top
+    const THRESHOLD = 8; // ignore tiny scroll jitter
+
+    const update = () => {
+      const currentY = window.scrollY;
+      const diff = currentY - lastY;
+
+      if (currentY <= TOP_OFFSET) {
+        setNavHidden(false);
+      } else if (diff > THRESHOLD) {
+        setNavHidden(true);
+      } else if (diff < -THRESHOLD) {
+        setNavHidden(false);
+      }
+
+      lastY = currentY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Never hide the bar while the full-screen menu is open.
+  const navBarHidden = navHidden && !menuOpen;
 
   const handleOverlayMouseMove = (e: React.MouseEvent) => {
     const norm = e.clientY / window.innerHeight - 0.5;
@@ -190,7 +227,15 @@ export default function HomeNav() {
   return (
     <>
       {/* Top nav bar */}
-      <nav className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 md:px-8 py-5">
+      <nav
+        className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 md:px-8 py-5"
+        style={{
+          transform: navBarHidden ? "translateY(-100%)" : "translateY(0)",
+          opacity: navBarHidden ? 0 : 1,
+          transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease",
+          pointerEvents: navBarHidden ? "none" : "auto",
+        }}
+      >
         <Link
           href="/"
           data-nav-logo
