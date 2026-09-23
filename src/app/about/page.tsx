@@ -84,7 +84,7 @@ export default function AboutPage() {
                 just quality conversion.
               </motion.h1>
               <motion.p variants={blurUp} className="text-base md:text-lg leading-relaxed max-w-md" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Based in South Derbyshire. Helping local tradespeople and small businesses get online, get found, and get more customers — without the agency price tag.
+                Based near Burton upon Trent, working with businesses across the UK. Helping local tradespeople and small businesses get online, get found, and get more customers — without the agency price tag.
               </motion.p>
 
               <motion.div variants={blurUp} className="mt-8 flex items-center gap-4">

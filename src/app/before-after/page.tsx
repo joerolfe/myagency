@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Before & After — Joseph Rolfe",
+  title: "Before & After",
   description: "See the difference a proper website makes. Real before and after examples from local businesses across Derbyshire and Staffordshire.",
   robots: { index: false, follow: false },
 };

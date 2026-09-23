@@ -4,14 +4,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Joseph Rolfe",
-  description: "How Joseph Rolfe collects, uses, and protects your personal data.",
+  title: "Privacy Policy",
+  description: "How Rolfe Brand Scaling collects, uses, and protects your personal data.",
 };
 
 const sections = [
   {
     title: "Who we are",
-    body: "Joseph Rolfe is a web designer based in South Derbyshire, UK. If you have any questions about this policy, you can contact us at the address on the Contact page.",
+    body: "Rolfe Brand Scaling is a web design and automation studio based near Burton upon Trent, UK, working with businesses across the UK. Rolfe Brand Scaling is run by Joseph Rolfe, a sole trader based near Burton upon Trent, UK. If you have any questions about this policy, you can contact us at the address on the Contact page.",
   },
   {
     title: "What data we collect",

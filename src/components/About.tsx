@@ -19,7 +19,7 @@ const blurUp: Variants = {
 
 const values = [
   { title: "Not a big agency", body: "You deal directly with me — no account managers, no handoffs, no delays." },
-  { title: "Local to you", body: "Based in South Derbyshire. Happy to meet in person or jump on a call." },
+  { title: "Local to you", body: "Based near Burton upon Trent, working with businesses across the UK. Happy to meet in person or jump on a call." },
   { title: "Always custom", body: "Every site is built from scratch around your business. No templates, ever." },
 ];
 
@@ -93,7 +93,7 @@ function AvatarCard() {
         </div>
 
         <h3 className="font-display text-2xl font-bold text-white mb-1">Joseph Rolfe</h3>
-        <p className="text-gold text-sm font-semibold mb-4">Web Developer · South Derbyshire</p>
+        <p className="text-gold text-sm font-semibold mb-4">Web Developer · Burton upon Trent</p>
 
         <p className="text-white/50 text-sm leading-relaxed mb-6">
           &ldquo;I built this to give local businesses the same quality websites big brands have — without the agency price tag.&rdquo;
@@ -176,7 +176,7 @@ export default function About() {
               Built by someone local who actually cares
             </motion.h2>
             <motion.p variants={blurUp} className="text-white/55 leading-relaxed text-base mb-10">
-              I&apos;m Joseph — a web developer and IT student based in South Derbyshire.
+              I&apos;m Joseph — a web developer and IT student based near Burton upon Trent, working with businesses across the UK.
               I started this business to help local businesses get online properly,
               without being overcharged by agencies or left confused by DIY tools.
             </motion.p>

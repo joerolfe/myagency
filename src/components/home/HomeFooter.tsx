@@ -371,7 +371,7 @@ export default function HomeFooter() {
       {/* Bottom bar — on the gold strip */}
       <div className="relative flex items-center justify-between px-6 md:px-8 py-2" style={{ zIndex: 1 }}>
         <p className="text-[11px] font-semibold tracking-wide" style={{ color: "rgba(0,0,0,0.45)" }}>
-          &copy; {new Date().getFullYear()} Joseph Rolfe · All rights reserved
+          &copy; {new Date().getFullYear()} Rolfe Brand Scaling · All rights reserved
         </p>
         <div className="flex items-center gap-8">
           <Link

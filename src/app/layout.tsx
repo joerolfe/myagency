@@ -23,14 +23,20 @@ const inter = Inter({
 });
 
 
+const homeTitle = "Rolfe Brand Scaling | Web Design & AI Automation | Burton upon Trent";
+const homeDescription =
+  "Websites and AI automation for trades and small businesses. Based near Burton upon Trent, working with clients across the UK. See a free demo of your new site before you pay anything.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: `${siteName} — Web Design for Local Businesses`,
-  description:
-    "Professional websites for small businesses in Derbyshire and Staffordshire. Custom design, free demo, no upfront cost. Based in South Derbyshire.",
+  title: {
+    default: homeTitle,
+    template: `%s | ${siteName}`,
+  },
+  description: homeDescription,
   keywords: [
-    "Joseph Rolfe",
-    "Joseph Rolfe web design",
+    "Rolfe Brand Scaling",
+    "Rolfe Brand Scaling web design",
     "web design Derbyshire",
     "web design Staffordshire",
     "local business websites",
@@ -45,21 +51,35 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: siteUrl,
     siteName,
-    title: `${siteName} — Web Design for Local Businesses`,
-    description:
-      "Professional websites for small businesses in Derbyshire and Staffordshire. Custom design, free demo, no upfront cost.",
+    title: homeTitle,
+    description: homeDescription,
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteName }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} — Web Design for Local Businesses`,
-    description:
-      "Professional websites for small businesses in Derbyshire and Staffordshire. Custom design, free demo, no upfront cost.",
+    title: homeTitle,
+    description: homeDescription,
   },
   robots: {
     index: true,
     follow: true,
   },
+};
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: siteName,
+  url: siteUrl,
+  image: `${siteUrl}/opengraph-image`,
+  description:
+    "Web design and AI automation for trades and small businesses, based near Burton upon Trent and working with clients across the UK.",
+  areaServed: [
+    { "@type": "Place", name: "Burton upon Trent" },
+    { "@type": "Place", name: "South Derbyshire" },
+    { "@type": "Place", name: "Staffordshire" },
+    { "@type": "Country", name: "United Kingdom" },
+  ],
 };
 
 export default function RootLayout({
@@ -70,6 +90,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
         {plausibleDomain && (
           <Script
             defer

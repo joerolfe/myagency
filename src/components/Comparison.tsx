@@ -18,7 +18,7 @@ const rows = [
   { feature: "Starting price",   us: "From £299",          diy: "£14–40/mo forever",  agency: "£1,500–3,000+" },
   { feature: "Setup time",       us: "~2 weeks",            diy: "Days to never",       agency: "6–12 weeks" },
   { feature: "Custom design",    us: true,                  diy: false,                 agency: "partial" },
-  { feature: "Local support",    us: "South Derbyshire",    diy: false,                 agency: false },
+  { feature: "Local support",    us: "Burton upon Trent",   diy: false,                 agency: false },
   { feature: "Free demo first",  us: true,                  diy: false,                 agency: false },
   { feature: "SEO included",     us: true,                  diy: "basic only",          agency: "extra cost" },
   { feature: "You own the site", us: true,                  diy: false,                 agency: "usually" },
@@ -89,7 +89,7 @@ export default function Comparison() {
                   Feature
                 </th>
                 <th className="px-4 py-4 text-sm font-bold text-white bg-gold border-b border-gold/80 text-center w-[23%]">
-                  Joseph Rolfe
+                  Rolfe Brand Scaling
                 </th>
                 <th className="px-4 py-4 text-xs font-bold tracking-wide text-[#666] bg-stone border-b border-[#e8e8e8] text-center w-[22%]">
                   Wix / Squarespace

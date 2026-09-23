@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="max-w-5xl mx-auto flex flex-col items-center gap-8 mt-[10rem]">
         {/* Brand */}
         <Link href="/" className="font-display text-xl font-bold text-white">
-          Joseph Rolfe
+          Rolfe Brand Scaling
         </Link>
 
         {/* Nav links */}
@@ -61,7 +61,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
           <p className="text-white/25 text-xs text-center sm:text-left">
-            &copy; {new Date().getFullYear()} Joseph Rolfe · Derbyshire &amp; Staffordshire
+            &copy; {new Date().getFullYear()} Rolfe Brand Scaling · Derbyshire &amp; Staffordshire
           </p>
           <Link
             href="/privacy"
