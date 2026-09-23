@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import Reveal from "@/components/Reveal";
 
 const ITEMS = [
   "WEB DESIGN",
@@ -51,7 +52,7 @@ export default function MarqueeTicker() {
   const items = [...ITEMS, ...ITEMS];
 
   return (
-    <div
+    <Reveal
       className="overflow-hidden py-4 border-y border-white/8"
       style={{ background: "#111" }}
     >
@@ -69,6 +70,6 @@ export default function MarqueeTicker() {
           ))}
         </div>
       </div>
-    </div>
+    </Reveal>
   );
 }
