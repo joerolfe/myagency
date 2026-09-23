@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import HomeNav from "@/components/home/HomeNav";
 import HomeFooter from "@/components/home/HomeFooter";
+import Reveal from "@/components/Reveal";
 
 const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 
@@ -22,7 +24,7 @@ const blurUp: Variants = {
 const trustPoints = [
   "Free mockup — see it before you pay a penny",
   "I reply within 24 hours, usually same day",
-  "Based in Derbyshire — happy to meet in person",
+  "Based near Burton upon Trent — happy to meet in person",
   "Plain English, no jargon, no hard sell",
 ];
 
@@ -39,7 +41,7 @@ function ToggleGroup({ label, name, options, value, onChange, required, showErro
       </label>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => (
-          <button key={opt} type="button" onClick={() => onChange(opt)}
+          <button key={opt} type="button" onClick={() => onChange(value === opt ? "" : opt)}
             className="px-4 py-2.5 text-[11px] font-black tracking-wide uppercase transition-all duration-200"
             style={{
               background: value === opt ? "#c9a84c" : "transparent",
@@ -56,8 +58,47 @@ function ToggleGroup({ label, name, options, value, onChange, required, showErro
   );
 }
 
-function InputField({ label, name, type = "text", placeholder, required = false }: {
-  label: string; name: string; type?: string; placeholder: string; required?: boolean;
+function MultiToggleGroup({ label, name, options, values, onChange, exclusiveOption }: {
+  label: string; name: string; options: string[]; values: string[];
+  onChange: (v: string[]) => void; exclusiveOption?: string;
+}) {
+  const toggle = (opt: string) => {
+    if (opt === exclusiveOption) {
+      // Picking the exclusive option ("Not sure yet") clears everything else —
+      // clicking it again while it's the only one selected clears it too.
+      onChange(values.includes(opt) && values.length === 1 ? [] : [opt]);
+      return;
+    }
+    // Picking any other option drops the exclusive one, then toggles normally.
+    const rest = values.filter((v) => v !== exclusiveOption);
+    onChange(rest.includes(opt) ? rest.filter((v) => v !== opt) : [...rest, opt]);
+  };
+  return (
+    <div>
+      <label className="block text-[11px] font-black tracking-[0.15em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>
+        {label}
+      </label>
+      <div className="flex flex-wrap gap-2">
+        {options.map((opt) => (
+          <button key={opt} type="button" onClick={() => toggle(opt)}
+            className="px-4 py-2.5 text-[11px] font-black tracking-wide uppercase transition-all duration-200"
+            style={{
+              background: values.includes(opt) ? "#c9a84c" : "transparent",
+              color: values.includes(opt) ? "#0a0a0a" : "rgba(255,255,255,0.4)",
+              border: values.includes(opt) ? "1px solid #c9a84c" : "1px solid rgba(255,255,255,0.1)",
+            }}
+          >
+            {opt}
+          </button>
+        ))}
+      </div>
+      <input type="hidden" name={name} value={values.join(", ")} />
+    </div>
+  );
+}
+
+function InputField({ label, name, type = "text", placeholder, required = false, autoComplete }: {
+  label: string; name: string; type?: string; placeholder: string; required?: boolean; autoComplete?: string;
 }) {
   return (
     <div>
@@ -68,6 +109,7 @@ function InputField({ label, name, type = "text", placeholder, required = false 
         type={type}
         name={name}
         required={required}
+        autoComplete={autoComplete}
         placeholder={placeholder}
         className="w-full text-sm px-4 py-3 outline-none transition-all duration-150"
         style={{
@@ -89,7 +131,9 @@ export default function ContactPage() {
   const [budget, setBudget] = useState<string | null>(null);
   const [source, setSource] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<string | null>(null);
+  const [automationsWanted, setAutomationsWanted] = useState<string[]>([]);
   const [showErrors, setShowErrors] = useState(false);
+  const wantsAutomations = service === "Automations" || service === "Both";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -112,12 +156,13 @@ export default function ContactPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          subject: `New enquiry from ${data.get("name")} — Joseph Rolfe`,
+          subject: `New enquiry from ${data.get("name")} — Rolfe Brand Scaling`,
           name: data.get("name"),
           "Business Name": data.get("businessName"),
           email: data.get("email"),
           phone: data.get("phone") || "Not provided",
           "Interested In": data.get("service") || "Not specified",
+          "Automations Wanted": data.get("automationsWanted") || "N/A",
           "Has Website": data.get("hasWebsite") || "Not specified",
           "Website URL": data.get("websiteUrl") || "N/A",
           "Budget": data.get("budget") || "Not specified",
@@ -175,7 +220,7 @@ export default function ContactPage() {
 
       {/* Joe strip */}
       <section className="px-6 py-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", zIndex: 1 }}>
-        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-6" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <Reveal className="max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-6" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
           <div className="flex items-center gap-4">
             <div className="relative flex-shrink-0">
               <div className="w-14 h-14 overflow-hidden" style={{ border: "1px solid rgba(201,168,76,0.3)" }}>
@@ -185,7 +230,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="font-black text-white text-sm" style={{ fontFamily: "var(--font-geist-sans)" }}>Joseph Rolfe</p>
-              <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Replies same day · South Derbyshire</p>
+              <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Replies same day · Burton upon Trent</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -195,7 +240,7 @@ export default function ContactPage() {
               </span>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* Form */}
@@ -203,8 +248,9 @@ export default function ContactPage() {
         <motion.div
           className="max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease }}
         >
           <AnimatePresence mode="wait">
             {status === "success" ? (
@@ -213,7 +259,12 @@ export default function ContactPage() {
                   <svg width="24" height="20" viewBox="0 0 24 20" fill="none"><path d="M1 10L9 18L23 2" stroke="#c9a84c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </motion.div>
                 <h2 className="font-black text-white text-2xl mb-3" style={{ fontFamily: "var(--font-geist-sans)", letterSpacing: "-0.03em" }}>Message sent!</h2>
-                <p className="text-sm leading-relaxed max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Thanks for reaching out. I&apos;ll be back to you within 24 hours — usually much sooner.</p>
+                <p className="text-sm leading-relaxed max-w-xs mb-8" style={{ color: "rgba(255,255,255,0.45)" }}>Thanks for reaching out. I&apos;ll be back to you within 24 hours — usually much sooner.</p>
+                <div className="flex items-center gap-4 text-sm font-bold">
+                  <Link href="/" className="transition-colors hover:opacity-80" style={{ color: "rgba(255,255,255,0.6)" }}>← Back to homepage</Link>
+                  <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
+                  <Link href="/#work" className="transition-colors hover:opacity-80" style={{ color: "#c9a84c" }}>See our work →</Link>
+                </div>
               </motion.div>
             ) : (
               <motion.div key="form" initial={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
@@ -224,21 +275,37 @@ export default function ContactPage() {
 
                 <form onSubmit={handleSubmit} className="px-8 py-7 space-y-6">
 <div className="grid sm:grid-cols-2 gap-4">
-                    <InputField label="Your Name" name="name" placeholder="Joe Smith" required />
-                    <InputField label="Business Name" name="businessName" placeholder="Smith's Plumbing" required />
+                    <InputField label="Your Name" name="name" placeholder="Joe Smith" required autoComplete="name" />
+                    <InputField label="Business Name" name="businessName" placeholder="Smith's Plumbing" required autoComplete="organization" />
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <InputField label="Email" name="email" type="email" placeholder="joe@example.com" required />
-                    <InputField label="Phone (optional)" name="phone" type="tel" placeholder="07700 000 000" />
+                    <InputField label="Email" name="email" type="email" placeholder="joe@example.com" required autoComplete="email" />
+                    <InputField label="Phone (optional)" name="phone" type="tel" placeholder="07700 000 000" autoComplete="tel" />
                   </div>
 
                   <ToggleGroup label="What are you interested in?" name="service" required showError={showErrors} options={["Website", "Automations", "Both"]} value={service} onChange={setService} />
+
+                  <AnimatePresence>
+                    {wantsAutomations && (
+                      <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3, ease: [0.16,1,0.3,1] }} className="overflow-hidden">
+                        <MultiToggleGroup
+                          label="Which automation(s) are you after?"
+                          name="automationsWanted"
+                          options={["Missed Call Text-Back", "Google Review Requests", "Lead Follow-Up", "Appointment Reminders", "Website Chatbot", "Full Bundle", "Not sure yet"]}
+                          values={automationsWanted}
+                          onChange={setAutomationsWanted}
+                          exclusiveOption="Not sure yet"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   <ToggleGroup label="Do you have a website?" name="hasWebsite" required showError={showErrors} options={["Yes", "No"]} value={hasWebsite} onChange={setHasWebsite} />
 
                   <AnimatePresence>
                     {hasWebsite === "Yes" && (
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3, ease: [0.16,1,0.3,1] }} className="overflow-hidden">
-                        <InputField label="Your website URL" name="websiteUrl" type="url" placeholder="https://yoursite.co.uk" />
+                        <InputField label="Your website URL" name="websiteUrl" type="url" placeholder="https://yoursite.co.uk" autoComplete="url" />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -264,7 +331,12 @@ export default function ContactPage() {
                   </div>
 
                   {status === "error" && (
-                    <p className="text-sm" style={{ color: "#ef4444" }}>Something went wrong. Try again or WhatsApp me directly.</p>
+                    <p className="text-sm" style={{ color: "#ef4444" }}>
+                      Something went wrong. Try again or{" "}
+                      <a href="https://wa.me/447857859135" target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-2">
+                        WhatsApp me directly
+                      </a>.
+                    </p>
                   )}
 
                   <button type="submit" disabled={status === "loading"} className="w-full py-4 text-sm font-black tracking-wide transition-opacity disabled:opacity-60 disabled:cursor-not-allowed" style={{ background: "#c9a84c", color: "#0a0a0a" }}>
@@ -279,7 +351,13 @@ export default function ContactPage() {
                     ) : "Send Message →"}
                   </button>
 
-                  <p className="text-center text-xs pb-1" style={{ color: "rgba(255,255,255,0.2)" }}>No spam. No commitment. Just a friendly chat about your business.</p>
+                  <div className="text-center space-y-1 pb-1">
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>No spam. No commitment. Just a friendly chat about your business.</p>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+                      By sending this, you agree to be contacted about your enquiry. See our{" "}
+                      <Link href="/privacy" className="underline underline-offset-2 hover:opacity-80" style={{ color: "rgba(255,255,255,0.35)" }}>Privacy Policy</Link>.
+                    </p>
+                  </div>
                 </form>
               </motion.div>
             )}
